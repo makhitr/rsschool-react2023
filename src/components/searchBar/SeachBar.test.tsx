@@ -3,9 +3,10 @@ import { render, screen } from '@testing-library/react';
 import SearchBar from './SearchBar';
 
 describe('Search Bar', () => {
-  it('render search bar', () => {
+  it('render search bar input', () => {
     render(<SearchBar />);
-      // expect(true).toBe(true)
+    const searchInput = screen.getByPlaceholderText(/search/i);
+    expect(searchInput).toBeInTheDocument();
   });
   // test("render search button", () => {
 
