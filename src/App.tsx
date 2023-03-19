@@ -1,14 +1,14 @@
-import SearchBar from './components/searchBar/SearchBar';
 import React from 'react';
-import './App.css';
+import AppRouter from './router/AppRouters';
+import NavBar from './components/navBar/NavBar';
 
 class App extends React.Component {
   render() {
     return (
-      <>
-        <h1> App </h1>
-        <SearchBar />
-      </>
+      <div data-testid="app">
+        <NavBar />
+        <AppRouter />
+      </div>
     );
   }
 }
