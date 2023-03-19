@@ -1,13 +1,14 @@
 .searchBarWrapper {
-  width: 100%;
+  max-width: 45%;
   height: 30px;
   padding: 10px;
   margin-bottom: 50px;
+  margin: 60px auto;
 }
 
 .searchBarForm {
   display: flex;
-  justify-content: space-around;
+  gap: 10px;
 }
 
 .searchBarInput {
