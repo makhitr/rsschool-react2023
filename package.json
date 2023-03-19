@@ -10,12 +10,12 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "prepare": "husky install",
-    "test": "vitest",
-    "coverage": "vitest run --coverage"
-  },
+    "test": "vitest run --coverage"
+   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.9.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",
