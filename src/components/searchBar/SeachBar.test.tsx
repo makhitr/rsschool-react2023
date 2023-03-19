@@ -8,7 +8,4 @@ describe('Search Bar', () => {
     const searchInput = screen.getByPlaceholderText(/search/i);
     expect(searchInput).toBeInTheDocument();
   });
-  // test("render search button", () => {
-
-  // })
 });

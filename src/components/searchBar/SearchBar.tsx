@@ -9,6 +9,11 @@ class SearchBar extends React.Component {
   //   this.setState({ searchValue: localStorage.getItem('searchValue') || '' });
   // }
 
+  componentDidUpdate(_prevProps: never, prevState: { searchValue: string }) {
+    if (prevState.searchValue !== this.state.searchValue) {
+      localStorage.setItem('searchValue', this.state.searchValue);
+    }
+  }
   componentWillUnmount(): void {
     localStorage.setItem('searchValue', this.state.searchValue);
   }
@@ -20,7 +25,6 @@ class SearchBar extends React.Component {
 
   handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    localStorage.setItem('searchValue', this.state.searchValue);
   };
 
   render() {
