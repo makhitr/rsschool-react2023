@@ -21,6 +21,13 @@ class NavBar extends React.Component {
           About us
         </NavLink>
         <NavLink
+          to="/form"
+          data-testid="from-link"
+          className={({ isActive }) => (isActive ? styles.navLinkActive : '')}
+        >
+          Form
+        </NavLink>
+        <NavLink
           to="/*"
           data-testid="error-link"
           className={({ isActive }) => (isActive ? styles.navLinkActive : '')}
