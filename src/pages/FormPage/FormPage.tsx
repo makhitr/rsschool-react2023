@@ -1,23 +1,31 @@
 import React from 'react';
-import { IFormCard } from 'types';
+import { FormPageState, IFormCard } from 'types';
 import Card from '../../components/card/Card';
 import Form from '../../components/form/Form';
+import styles from './FormPage.module.css';
 
 class FormPage extends React.Component {
-  state = {
-    cardList: null,
+  state: FormPageState = {
+    cardList: [],
   };
 
   createCard = (card: IFormCard) => {
-    this.setState({ cardList: card });
-    console.log('create card func');
+    this.setState((prevState: FormPageState) => ({
+      ...prevState,
+      cardList: [...prevState.cardList, card],
+    }));
+    console.log(this.state);
   };
 
   render() {
+    const listItems = this.state.cardList.map((card, id) => (
+      <Card key={`card.name-${id}`} cardData={card} />
+    ));
+
     return (
       <>
         <Form createCard={this.createCard} />
-        {this.state.cardList && <Card cardData={this.state.cardList} />}
+        {this.state.cardList && <div className={styles.cardSection}>{listItems}</div>}
       </>
     );
   }

@@ -44,3 +44,7 @@ export interface IFormCard {
 export type CardProps = {
   cardData: ICard | IFormCard;
 };
+
+export type FormPageState = {
+  cardList: IFormCard[];
+};

@@ -1,5 +1,5 @@
 import React, { FormEvent } from 'react';
-import { FormProps, FormState } from 'types';
+import { FormProps, FormState, IFormCard } from 'types';
 import styles from './Form.module.css';
 
 class Form extends React.Component<FormProps, FormState> {
@@ -62,7 +62,7 @@ class Form extends React.Component<FormProps, FormState> {
     event.preventDefault();
     await this.validateForm();
     if (this.state.errors.length === 0) {
-      this.setState(
+      await this.setState(
         (prevState: FormState): FormState => ({
           ...prevState,
           cardData: {
@@ -72,17 +72,17 @@ class Form extends React.Component<FormProps, FormState> {
             species: this.selectSpecies.current!.value,
             gender: this.genderFemaleInput.current!.checked ? 'female' : 'male',
             image: 'some image',
-            // imgUrl: this.fileInput.current!.files[0]?.name,
+            //image : this.fileInput.current!.files[0]?.name,
           },
         })
       );
-      this.props.createCard(this.state.cardData);
+      this.props.createCard(this.state.cardData as IFormCard);
     }
   };
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit} ref={this.form} className={styles.formWrapper}>
+      <form onSubmit={this.handleSubmit} className={styles.formWrapper}>
         <label>
           Full Name:
           <input type="text" ref={this.nameInput} name="name" />
