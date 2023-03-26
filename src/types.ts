@@ -22,3 +22,8 @@ export interface ICard {
 export type SearchBarState = {
   searchValue: string;
 };
+
+export type FormState = {
+  // errors: Record<string, string>;
+  errors: string[];
+};

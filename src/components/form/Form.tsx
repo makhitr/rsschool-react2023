@@ -1,12 +1,9 @@
-import React, { FormEvent, RefObject } from 'react';
+import React, { FormEvent } from 'react';
+import { FormState } from 'types';
 import styles from './Form.module.css';
 
-interface FormState {
-  errors: string[];
-}
-
-class Form extends React.Component<FormState> {
-  form = React.createRef<HTMLFormElement>();
+class Form extends React.Component {
+  form = React.createRef<HTMLFormElement>(); //убрать?
   nameInput = React.createRef<HTMLInputElement>();
   dateInput = React.createRef<HTMLInputElement>();
   aliveInput = React.createRef<HTMLInputElement>();
@@ -20,30 +17,39 @@ class Form extends React.Component<FormState> {
   };
 
   validateForm = () => {
-    const name = this.nameInput.current?.value;
-    const date = this.dateInput.current?.value;
-    const alive = this.aliveInput.current?.checked;
-    const species = this.selectSpecies.current?.value;
-    const maleGender = this.genderMaleInput.current?.checked;
-    const femaleGender = this.genderFemaleInput.current?.checked;
-    const file = this.fileInput.current?.value;
-    // new Array(form.current).map(el => console.log(el))
-
-    if (name?.length === 0) {
+    this.setState((prevState: FormState) => ({ ...prevState, errors: [] }));
+    if (this.nameInput.current?.value?.length === 0) {
       this.setState((prevState: FormState) => ({
         ...prevState,
         errors: [...prevState.errors, 'name'],
       }));
     }
+    if (!this.dateInput?.current!.value || new Date(this.dateInput.current.value) > new Date()) {
+      this.setState((prevState: FormState) => ({
+        ...prevState,
+        errors: [...prevState.errors, 'date'],
+      }));
+    }
+    if (!this.genderMaleInput.current?.checked && !this.genderFemaleInput.current?.checked) {
+      this.setState((prevState: FormState) => ({
+        ...prevState,
+        errors: [...prevState.errors, 'gender'],
+      }));
+    }
+    if (
+      !this.fileInput.current?.files ||
+      !['image/jpg', 'image/jpeg', ' image/png'].includes(this.fileInput.current.files[0]?.type)
+    ) {
+      this.setState((prevState: FormState) => ({
+        ...prevState,
+        errors: [...prevState.errors, 'file'],
+      }));
+    }
   };
 
-  handleSubmit = (event: FormEvent) => {
+  handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    // console.log(this.form.current?.name)
-
-    const validate = this.validateForm();
-    console.log(validate);
-    // console.log(this.nameInput.current?.value)
+    await this.validateForm();
   };
 
   render() {
@@ -53,14 +59,14 @@ class Form extends React.Component<FormState> {
           Full Name:
           <input type="text" ref={this.nameInput} name="name" />
         </label>
-        <div></div>
+        <div className={styles.error}>{this.state.errors.length && <p>Should be not empty</p>}</div>
         <label>
           Created:
           <input type="date" ref={this.dateInput} />
         </label>
         <label>
           Species:
-          <select id="species" name="species" ref={this.selectOptions}>
+          <select id="species" name="species" ref={this.selectSpecies}>
             <option value="human">Human</option>
             <option value="alien">Alien</option>
             <option value="humanoid">Humanoid</option>
@@ -92,10 +98,3 @@ class Form extends React.Component<FormState> {
 }
 
 export default Form;
-
-// text input
-// date input
-// dropdown/select
-// checkbox
-// switcher (radio)
-// file upload (image)
