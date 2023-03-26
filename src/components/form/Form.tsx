@@ -1,38 +1,48 @@
 import React, { FormEvent, RefObject } from 'react';
 import styles from './Form.module.css';
 
-class Form extends React.Component {
+interface FormState {
+  errors: string[];
+}
+
+class Form extends React.Component<FormState> {
   form = React.createRef<HTMLFormElement>();
   nameInput = React.createRef<HTMLInputElement>();
   dateInput = React.createRef<HTMLInputElement>();
   aliveInput = React.createRef<HTMLInputElement>();
-  selectOptions = React.createRef<HTMLSelectElement>();
+  selectSpecies = React.createRef<HTMLSelectElement>();
   genderMaleInput = React.createRef<HTMLInputElement>();
   genderFemaleInput = React.createRef<HTMLInputElement>();
   fileInput = React.createRef<HTMLInputElement>();
 
-  state = {
+  state: FormState = {
     errors: [],
   };
 
-  validateForm = (form: RefObject<HTMLFormElement>) => {
+  validateForm = () => {
+    const name = this.nameInput.current?.value;
+    const date = this.dateInput.current?.value;
+    const alive = this.aliveInput.current?.checked;
+    const species = this.selectSpecies.current?.value;
+    const maleGender = this.genderMaleInput.current?.checked;
+    const femaleGender = this.genderFemaleInput.current?.checked;
+    const file = this.fileInput.current?.value;
     // new Array(form.current).map(el => console.log(el))
-    console.log(form);
+
+    if (name?.length === 0) {
+      this.setState((prevState: FormState) => ({
+        ...prevState,
+        errors: [...prevState.errors, 'name'],
+      }));
+    }
   };
 
   handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     // console.log(this.form.current?.name)
-    console.log(
-      this.nameInput.current?.value,
-      this.dateInput.current?.value,
-      this.aliveInput.current?.checked,
-      this.selectOptions.current?.value,
-      this.genderMaleInput.current?.checked,
-      this.genderFemaleInput.current?.checked,
-      this.fileInput.current?.value
-    );
-    this.validateForm(this.form);
+
+    const validate = this.validateForm();
+    console.log(validate);
     // console.log(this.nameInput.current?.value)
   };
 

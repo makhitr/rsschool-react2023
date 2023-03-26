@@ -1,7 +1,9 @@
 import React, { FormEvent } from 'react';
 import styles from './SearchBar.module.css';
+import { SearchBarState } from '../../types';
+
 class SearchBar extends React.Component {
-  state = {
+  state: SearchBarState = {
     searchValue: localStorage.getItem('searchValue') || '',
   };
 

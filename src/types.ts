@@ -18,3 +18,7 @@ export interface ICard {
   url: string;
   created: string;
 }
+
+export type SearchBarState = {
+  searchValue: string;
+};
