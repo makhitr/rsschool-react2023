@@ -91,7 +91,12 @@ class Form extends React.Component<FormProps, FormState> {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit} className={styles.formWrapper} ref={this.form}>
+      <form
+        onSubmit={this.handleSubmit}
+        className={styles.formWrapper}
+        ref={this.form}
+        data-testid="form"
+      >
         {this.state.completed && <p>Your data has been saved </p>}
         <label>
           Full Name:
