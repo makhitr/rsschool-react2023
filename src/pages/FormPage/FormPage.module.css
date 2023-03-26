@@ -1,3 +1,7 @@
+.mainWrapper {
+  margin-top: 20px;
+}
+
 .cardSection {
   display: flex;
   justify-content: space-between;

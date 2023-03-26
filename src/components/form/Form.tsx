@@ -24,7 +24,6 @@ class Form extends React.Component<FormProps, FormState> {
     this.genderMaleInput = React.createRef();
     this.genderFemaleInput = React.createRef();
     this.fileInput = React.createRef();
-    // this.createCard = this.props.createCard;
   }
 
   validateForm = () => {
@@ -33,6 +32,12 @@ class Form extends React.Component<FormProps, FormState> {
       this.setState((prevState: FormState) => ({
         ...prevState,
         errors: [...prevState.errors, 'name'],
+      }));
+    }
+    if (!this.aliveInput.current?.checked) {
+      this.setState((prevState: FormState) => ({
+        ...prevState,
+        errors: [...prevState.errors, 'alive'],
       }));
     }
     if (!this.dateInput?.current!.value || new Date(this.dateInput.current.value) > new Date()) {
@@ -71,8 +76,7 @@ class Form extends React.Component<FormProps, FormState> {
             status: this.aliveInput.current!.checked,
             species: this.selectSpecies.current!.value,
             gender: this.genderFemaleInput.current!.checked ? 'female' : 'male',
-            image: 'some image',
-            //image : this.fileInput.current!.files[0]?.name,
+            image: URL.createObjectURL(this.fileInput.current!.files![0]),
           },
         })
       );
@@ -87,11 +91,16 @@ class Form extends React.Component<FormProps, FormState> {
           Full Name:
           <input type="text" ref={this.nameInput} name="name" />
         </label>
-        {/* <div className={styles.error}>{this.state.errors.length && <p>Should be not empty</p>}</div> */}
+        <div className={styles.error}>
+          {this.state.errors.includes('name') && <p>Should be not empty</p>}
+        </div>
         <label>
           Created:
           <input type="date" ref={this.dateInput} />
         </label>
+        <div className={styles.error}>
+          {this.state.errors.includes('date') && <p>Choose the data in the past</p>}
+        </div>
         <label>
           Species:
           <select id="species" name="species" ref={this.selectSpecies}>
@@ -101,10 +110,15 @@ class Form extends React.Component<FormProps, FormState> {
             <option value="mythological creature">Mythological Creature</option>
           </select>
         </label>
+        <div className={styles.error}></div>
         <label>
           Alive?
           <input type="checkbox" ref={this.aliveInput} />
         </label>
+        <div className={styles.error}>
+          {this.state.errors.includes('alive') && <p>It should be alive?</p>}
+        </div>
+        <div className={styles.error}></div>
         <div>
           <label>
             Male
@@ -114,11 +128,19 @@ class Form extends React.Component<FormProps, FormState> {
             Female
             <input type="radio" ref={this.genderFemaleInput} name="gender" />
           </label>
+          <div className={styles.error}>
+            {this.state.errors.includes('gender') && <p>Please choose gender</p>}
+          </div>
         </div>
         <label>
           Upload photo
           <input type="file" ref={this.fileInput} />
         </label>
+        <div className={styles.error}>
+          {this.state.errors.includes('file') && (
+            <p>Please choose image in jpg, jpeg, png format</p>
+          )}
+        </div>
         <button>Submit</button>
       </form>
     );

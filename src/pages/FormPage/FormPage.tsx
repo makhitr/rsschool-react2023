@@ -23,10 +23,12 @@ class FormPage extends React.Component {
     ));
 
     return (
-      <>
+      <div className={styles.mainWrapper}>
+        {' '}
+        Add your favourite character
         <Form createCard={this.createCard} />
         {this.state.cardList && <div className={styles.cardSection}>{listItems}</div>}
-      </>
+      </div>
     );
   }
 }
