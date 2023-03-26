@@ -1,10 +1,6 @@
 import React from 'react';
 import styles from './Card.module.css';
-import { ICard } from 'types';
-
-type CardProps = {
-  cardData: ICard;
-};
+import { CardProps } from 'types';
 
 class Card extends React.Component<CardProps> {
   constructor(props: CardProps) {

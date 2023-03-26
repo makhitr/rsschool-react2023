@@ -1,20 +1,31 @@
 import React, { FormEvent } from 'react';
-import { FormState } from 'types';
+import { FormProps, FormState } from 'types';
 import styles from './Form.module.css';
 
-class Form extends React.Component {
-  form = React.createRef<HTMLFormElement>(); //убрать?
-  nameInput = React.createRef<HTMLInputElement>();
-  dateInput = React.createRef<HTMLInputElement>();
-  aliveInput = React.createRef<HTMLInputElement>();
-  selectSpecies = React.createRef<HTMLSelectElement>();
-  genderMaleInput = React.createRef<HTMLInputElement>();
-  genderFemaleInput = React.createRef<HTMLInputElement>();
-  fileInput = React.createRef<HTMLInputElement>();
+class Form extends React.Component<FormProps, FormState> {
+  nameInput: React.RefObject<HTMLInputElement>;
+  dateInput: React.RefObject<HTMLInputElement>;
+  aliveInput: React.RefObject<HTMLInputElement>;
+  selectSpecies: React.RefObject<HTMLSelectElement>;
+  genderMaleInput: React.RefObject<HTMLInputElement>;
+  genderFemaleInput: React.RefObject<HTMLInputElement>;
+  fileInput: React.RefObject<HTMLInputElement>;
 
-  state: FormState = {
-    errors: [],
-  };
+  constructor(props: FormProps) {
+    super(props);
+    this.state = {
+      errors: [],
+      cardData: null,
+    };
+    this.nameInput = React.createRef();
+    this.dateInput = React.createRef();
+    this.aliveInput = React.createRef();
+    this.selectSpecies = React.createRef();
+    this.genderMaleInput = React.createRef();
+    this.genderFemaleInput = React.createRef();
+    this.fileInput = React.createRef();
+    // this.createCard = this.props.createCard;
+  }
 
   validateForm = () => {
     this.setState((prevState: FormState) => ({ ...prevState, errors: [] }));
@@ -50,6 +61,23 @@ class Form extends React.Component {
   handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     await this.validateForm();
+    if (this.state.errors.length === 0) {
+      this.setState(
+        (prevState: FormState): FormState => ({
+          ...prevState,
+          cardData: {
+            name: this.nameInput.current!.value,
+            created: this.dateInput.current!.value,
+            status: this.aliveInput.current!.checked,
+            species: this.selectSpecies.current!.value,
+            gender: this.genderFemaleInput.current!.checked ? 'female' : 'male',
+            image: 'some image',
+            // imgUrl: this.fileInput.current!.files[0]?.name,
+          },
+        })
+      );
+      this.props.createCard(this.state.cardData);
+    }
   };
 
   render() {
@@ -59,7 +87,7 @@ class Form extends React.Component {
           Full Name:
           <input type="text" ref={this.nameInput} name="name" />
         </label>
-        <div className={styles.error}>{this.state.errors.length && <p>Should be not empty</p>}</div>
+        {/* <div className={styles.error}>{this.state.errors.length && <p>Should be not empty</p>}</div> */}
         <label>
           Created:
           <input type="date" ref={this.dateInput} />

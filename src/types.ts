@@ -26,4 +26,21 @@ export type SearchBarState = {
 export type FormState = {
   // errors: Record<string, string>;
   errors: string[];
+  cardData: IFormCard | null;
+};
+
+export type FormProps = {
+  createCard: (card: IFormCard) => void;
+};
+export interface IFormCard {
+  name: string;
+  created: string;
+  status: boolean;
+  species: string;
+  gender: string;
+  image?: string;
+}
+
+export type CardProps = {
+  cardData: ICard | IFormCard;
 };
