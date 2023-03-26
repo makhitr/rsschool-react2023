@@ -3,6 +3,7 @@ import { FormProps, FormState, IFormCard } from 'types';
 import styles from './Form.module.css';
 
 class Form extends React.Component<FormProps, FormState> {
+  form: React.RefObject<HTMLFormElement>;
   nameInput: React.RefObject<HTMLInputElement>;
   dateInput: React.RefObject<HTMLInputElement>;
   aliveInput: React.RefObject<HTMLInputElement>;
@@ -16,7 +17,9 @@ class Form extends React.Component<FormProps, FormState> {
     this.state = {
       errors: [],
       cardData: null,
+      completed: false,
     };
+    this.form = React.createRef();
     this.nameInput = React.createRef();
     this.dateInput = React.createRef();
     this.aliveInput = React.createRef();
@@ -70,6 +73,7 @@ class Form extends React.Component<FormProps, FormState> {
       await this.setState(
         (prevState: FormState): FormState => ({
           ...prevState,
+          completed: true,
           cardData: {
             name: this.nameInput.current!.value,
             created: this.dateInput.current!.value,
@@ -81,12 +85,14 @@ class Form extends React.Component<FormProps, FormState> {
         })
       );
       this.props.createCard(this.state.cardData as IFormCard);
+      this.form.current?.reset();
     }
   };
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit} className={styles.formWrapper}>
+      <form onSubmit={this.handleSubmit} className={styles.formWrapper} ref={this.form}>
+        {this.state.completed && <p>Your data has been saved </p>}
         <label>
           Full Name:
           <input type="text" ref={this.nameInput} name="name" />
@@ -118,7 +124,6 @@ class Form extends React.Component<FormProps, FormState> {
         <div className={styles.error}>
           {this.state.errors.includes('alive') && <p>It should be alive?</p>}
         </div>
-        <div className={styles.error}></div>
         <div>
           <label>
             Male

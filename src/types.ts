@@ -24,9 +24,9 @@ export type SearchBarState = {
 };
 
 export type FormState = {
-  // errors: Record<string, string>;
   errors: string[];
   cardData: IFormCard | null;
+  completed: boolean;
 };
 
 export type FormProps = {

@@ -14,7 +14,6 @@ class FormPage extends React.Component {
       ...prevState,
       cardList: [...prevState.cardList, card],
     }));
-    console.log(this.state);
   };
 
   render() {
