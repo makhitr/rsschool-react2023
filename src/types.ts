@@ -18,3 +18,8 @@ export interface ICard {
   url: string;
   created: string;
 }
+
+export type FormState = {
+  // errors: Record<string, string>;
+  errors: string[];
+};

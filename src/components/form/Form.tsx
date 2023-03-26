@@ -1,8 +1,9 @@
-import React, { FormEvent, RefObject } from 'react';
+import React, { FormEvent } from 'react';
+import { FormState } from 'types';
 import styles from './Form.module.css';
 
 class Form extends React.Component {
-  form = React.createRef<HTMLFormElement>();
+  form = React.createRef<HTMLFormElement>(); //убрать?
   nameInput = React.createRef<HTMLInputElement>();
   dateInput = React.createRef<HTMLInputElement>();
   aliveInput = React.createRef<HTMLInputElement>();
@@ -11,29 +12,44 @@ class Form extends React.Component {
   genderFemaleInput = React.createRef<HTMLInputElement>();
   fileInput = React.createRef<HTMLInputElement>();
 
-  state = {
+  state: FormState = {
     errors: [],
   };
 
-  validateForm = (form: RefObject<HTMLFormElement>) => {
-    // new Array(form.current).map(el => console.log(el))
-    console.log(form);
+  validateForm = () => {
+    this.setState((prevState: FormState) => ({ ...prevState, errors: [] }));
+    if (this.nameInput.current?.value?.length === 0) {
+      this.setState((prevState: FormState) => ({
+        ...prevState,
+        errors: [...prevState.errors, 'name'],
+      }));
+    }
+    if (!this.dateInput?.current!.value || new Date(this.dateInput.current.value) > new Date()) {
+      this.setState((prevState: FormState) => ({
+        ...prevState,
+        errors: [...prevState.errors, 'date'],
+      }));
+    }
+    if (!this.genderMaleInput.current?.checked && !this.genderFemaleInput.current?.checked) {
+      this.setState((prevState: FormState) => ({
+        ...prevState,
+        errors: [...prevState.errors, 'gender'],
+      }));
+    }
+    if (
+      !this.fileInput.current?.files ||
+      !['image/jpg', 'image/jpeg', ' image/png'].includes(this.fileInput.current.files[0]?.type)
+    ) {
+      this.setState((prevState: FormState) => ({
+        ...prevState,
+        errors: [...prevState.errors, 'file'],
+      }));
+    }
   };
 
-  handleSubmit = (event: FormEvent) => {
+  handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    // console.log(this.form.current?.name)
-    console.log(
-      this.nameInput.current?.value,
-      this.dateInput.current?.value,
-      this.aliveInput.current?.checked,
-      this.selectOptions.current?.value,
-      this.genderMaleInput.current?.checked,
-      this.genderFemaleInput.current?.checked,
-      this.fileInput.current?.value
-    );
-    this.validateForm(this.form);
-    // console.log(this.nameInput.current?.value)
+    await this.validateForm();
   };
 
   render() {
@@ -43,7 +59,7 @@ class Form extends React.Component {
           Full Name:
           <input type="text" ref={this.nameInput} name="name" />
         </label>
-        <div></div>
+        <div className={styles.error}>{this.state.errors.length && <p>Should be not empty</p>}</div>
         <label>
           Created:
           <input type="date" ref={this.dateInput} />
