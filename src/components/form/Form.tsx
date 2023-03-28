@@ -57,7 +57,7 @@ class Form extends React.Component<FormProps, FormState> {
     }
     if (
       !this.fileInput.current?.files ||
-      !['image/jpg', 'image/jpeg', ' image/png'].includes(this.fileInput.current.files[0]?.type)
+      !['image/jpg', 'image/jpeg', 'image/png'].includes(this.fileInput.current.files[0]?.type)
     ) {
       this.setState((prevState: FormState) => ({
         ...prevState,
