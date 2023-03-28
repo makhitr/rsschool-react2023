@@ -57,7 +57,7 @@ class Form extends React.Component<FormProps, FormState> {
     }
     if (
       !this.fileInput.current?.files ||
-      !['image/jpg', 'image/jpeg', ' image/png'].includes(this.fileInput.current.files[0]?.type)
+      !['image/jpg', 'image/jpeg', 'image/png'].includes(this.fileInput.current.files[0]?.type)
     ) {
       this.setState((prevState: FormState) => ({
         ...prevState,
@@ -67,6 +67,8 @@ class Form extends React.Component<FormProps, FormState> {
   };
 
   handleSubmit = async (event: FormEvent) => {
+    console.log(this.fileInput.current!.files![0]);
+
     event.preventDefault();
     await this.validateForm();
     if (this.state.errors.length === 0) {
