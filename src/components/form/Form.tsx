@@ -37,6 +37,12 @@ class Form extends React.Component<FormProps, FormState> {
         errors: [...prevState.errors, 'name'],
       }));
     }
+    if (this.nameInput.current?.value[0] !== this.nameInput.current?.value[0]?.toUpperCase()) {
+      this.setState((prevState: FormState) => ({
+        ...prevState,
+        errors: [...prevState.errors, 'uppercase'],
+      }));
+    }
     if (!this.aliveInput.current?.checked) {
       this.setState((prevState: FormState) => ({
         ...prevState,
@@ -104,6 +110,7 @@ class Form extends React.Component<FormProps, FormState> {
         </label>
         <div className={styles.error}>
           {this.state.errors.includes('name') && <p>Should be not empty</p>}
+          {this.state.errors.includes('uppercase') && <p>First letter should be in upper case</p>}
         </div>
         <label>
           Created:
