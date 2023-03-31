@@ -22,7 +22,7 @@ class FormPage extends React.Component {
     ));
 
     return (
-      <div className={styles.mainWrapper}>
+      <div className={styles.mainWrapper} data-testid="form-page">
         Add your favourite character
         <Form createCard={this.createCard} />
         <div className={styles.cardSection} data-testid="cards-list">

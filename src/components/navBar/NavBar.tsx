@@ -20,7 +20,7 @@ const NavBar = () => {
       </NavLink>
       <NavLink
         to="/form"
-        data-testid="from-link"
+        data-testid="form-link"
         className={({ isActive }) => (isActive ? styles.navLinkActive : '')}
       >
         Form
