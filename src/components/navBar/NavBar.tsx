@@ -25,13 +25,6 @@ const NavBar = () => {
       >
         Form
       </NavLink>
-      <NavLink
-        to="/*"
-        data-testid="error-link"
-        className={({ isActive }) => (isActive ? styles.navLinkActive : '')}
-      >
-        Error
-      </NavLink>
     </nav>
   );
 };
