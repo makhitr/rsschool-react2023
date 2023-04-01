@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import FormPage from './FormPage';
 
-describe('Main Page', () => {
+describe('Form Page', () => {
   it('render form page', () => {
     render(<FormPage />);
     const formPageTitle = screen.getByText(/character/i);

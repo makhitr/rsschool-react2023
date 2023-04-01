@@ -19,10 +19,6 @@ export interface ICard {
   created: string;
 }
 
-export type SearchBarState = {
-  searchValue: string;
-};
-
 export type FormState = {
   errors: string[];
   cardData: IFormCard | null;
@@ -45,6 +41,6 @@ export type CardProps = {
   cardData: ICard | IFormCard;
 };
 
-export type FormPageState = {
-  cardList: IFormCard[];
+export type CardsListProps = {
+  cards: ICard[] | IFormCard[];
 };

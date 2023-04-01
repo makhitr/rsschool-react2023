@@ -67,8 +67,6 @@ class Form extends React.Component<FormProps, FormState> {
   };
 
   handleSubmit = async (event: FormEvent) => {
-    console.log(this.fileInput.current!.files![0]);
-
     event.preventDefault();
     await this.validateForm();
     if (this.state.errors.length === 0) {
