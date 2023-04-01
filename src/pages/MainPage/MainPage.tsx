@@ -4,7 +4,7 @@ import SearchBar from '../../components/searchBar/SearchBar';
 import styles from './MainPage.module.css';
 import data from '../../data';
 
-const MainPage = () => {
+const MainPage: React.FC = (): JSX.Element => {
   const [cardData, setCardData] = useState(data);
 
   const listItems = cardData.map((card) => <Card key={card.id} cardData={card} />);

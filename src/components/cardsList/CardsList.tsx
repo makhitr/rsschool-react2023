@@ -3,7 +3,7 @@ import Card from '../card/Card';
 import { CardsListProps } from '../../types';
 import styles from './CardsList.module.css';
 
-const CardsList = ({ cards }: CardsListProps): JSX.Element => {
+const CardsList: React.FC<CardsListProps> = ({ cards }): JSX.Element => {
   return (
     <div className={styles.cardSection} data-testid="cards-list">
       {cards.map((card, id) => (

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AboutPage = () => {
+const AboutPage: React.FC = (): JSX.Element => {
   return (
     <div data-testid="about-page">
       <h2>About Us Page</h2>

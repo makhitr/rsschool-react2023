@@ -1,4 +1,4 @@
-import CardList from '../../components/cardsList/CardsList';
+import CardsList from '../../components/cardsList/CardsList';
 import React from 'react';
 import { IFormCard } from 'types';
 import Form from '../../components/form/Form';
@@ -15,7 +15,7 @@ const FormPage: React.FC = (): JSX.Element => {
     <div className={styles.mainWrapper} data-testid="form-page">
       Add your favourite character
       <Form createCard={createCard} />
-      <CardList cards={cardsList} />
+      <CardsList cards={cardsList} />
     </div>
   );
 };

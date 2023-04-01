@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './SearchBar.module.css';
 
-const SearchBar = () => {
+const SearchBar: React.FC = (): JSX.Element => {
   const [searchValue, setSearchValue] = React.useState(localStorage.getItem('searchValue') || '');
 
   // React.useEffect(() => setSearchValue(localStorage.getItem('searchValue') || ''), []);
