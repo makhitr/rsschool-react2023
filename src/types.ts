@@ -19,22 +19,17 @@ export interface ICard {
   created: string;
 }
 
-export type FormState = {
-  errors: string[];
-  cardData: IFormCard | null;
-  completed: boolean;
-};
-
 export type FormProps = {
   createCard: (card: IFormCard) => void;
 };
+
 export interface IFormCard {
   name: string;
   created: string;
   status: boolean;
   species: string;
   gender: string;
-  image?: string;
+  image: FileList;
 }
 
 export type CardProps = {
