@@ -1,0 +1,10 @@
+.mainWrapper {
+  margin-top: 20px;
+}
+
+.cardSection {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 50%;
+}

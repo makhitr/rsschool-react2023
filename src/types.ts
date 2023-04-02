@@ -18,3 +18,33 @@ export interface ICard {
   url: string;
   created: string;
 }
+
+export type SearchBarState = {
+  searchValue: string;
+};
+
+export type FormState = {
+  errors: string[];
+  cardData: IFormCard | null;
+  completed: boolean;
+};
+
+export type FormProps = {
+  createCard: (card: IFormCard) => void;
+};
+export interface IFormCard {
+  name: string;
+  created: string;
+  status: boolean;
+  species: string;
+  gender: string;
+  image?: string;
+}
+
+export type CardProps = {
+  cardData: ICard | IFormCard;
+};
+
+export type FormPageState = {
+  cardList: IFormCard[];
+};

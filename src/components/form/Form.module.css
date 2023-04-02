@@ -1,0 +1,21 @@
+.formWrapper {
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-transform: uppercase;
+
+}
+
+.formWrapper input {
+  margin: 12px;
+}
+
+.error {
+  width: 100%;
+  height: 25px;
+  font-size: 0.8rem;
+  color: rgb(179, 0, 0);
+  text-transform: initial;
+  text-align: left;
+}
