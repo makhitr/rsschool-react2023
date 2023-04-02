@@ -11,8 +11,8 @@ describe('Form', () => {
     render(<Form createCard={createCard} />);
   });
   it('render form', () => {
-    const formPageTitle = screen.getByTestId(/form/i);
-    expect(formPageTitle).toBeInTheDocument();
+    const form = screen.getByTestId('form');
+    expect(form).toBeInTheDocument();
   });
   it('onSubmit is called after pass validation', () => {
     const name = screen.getByRole('textbox', {

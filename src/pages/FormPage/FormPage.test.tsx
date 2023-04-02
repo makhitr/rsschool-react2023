@@ -5,8 +5,8 @@ import FormPage from './FormPage';
 describe('Form Page', () => {
   it('render form page', () => {
     render(<FormPage />);
-    const formPageTitle = screen.getByText(/character/i);
-    expect(formPageTitle).toBeInTheDocument();
+    const formPage = screen.getByTestId('form-page');
+    expect(formPage).toBeInTheDocument();
   });
   it('render list cards', () => {
     render(<FormPage />);

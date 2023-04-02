@@ -6,20 +6,44 @@ describe('CardsList', () => {
   it('render cards list', () => {
     const cards = [
       {
-        name: 'Test',
-        created: 'Test',
-        status: true,
-        species: 'Test',
-        gender: 'Test',
-        image: 'Test',
+        id: 1,
+        name: 'string',
+        status: 'string',
+        species: 'string',
+        type: 'string',
+        gender: 'string',
+        origin: {
+          name: 'string',
+          url: 'string',
+        },
+        location: {
+          name: 'string',
+          url: 'string',
+        },
+        image: 'string',
+        episode: ['string'],
+        url: 'string',
+        created: 'string',
       },
       {
-        name: 'Test1',
-        created: 'Test1',
-        status: false,
-        species: 'Test1',
-        gender: 'Test1',
-        image: 'Test1',
+        id: 2,
+        name: 'string',
+        status: 'string',
+        species: 'string',
+        type: 'string',
+        gender: 'string',
+        origin: {
+          name: 'string',
+          url: 'string',
+        },
+        location: {
+          name: 'string',
+          url: 'string',
+        },
+        image: 'string',
+        episode: ['string'],
+        url: 'string',
+        created: 'string',
       },
     ];
     render(<CardsList cards={cards} />);

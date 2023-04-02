@@ -14,7 +14,7 @@ export interface ICard {
     url: string;
   };
   image: string;
-  episode: [];
+  episode: string[];
   url: string;
   created: string;
 }

@@ -29,7 +29,7 @@ const Form: React.FC<FormProps> = ({ createCard }): JSX.Element => {
   return (
     <>
       {isCompleted && <p>Your data has been saved </p>}
-      <form className={styles.formWrapper} onSubmit={handleSubmit(onSubmit)}>
+      <form className={styles.formWrapper} onSubmit={handleSubmit(onSubmit)} data-testid="form">
         <label>
           Full Name:
           <input
