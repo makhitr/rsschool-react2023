@@ -3,6 +3,7 @@ import styles from './Card.module.css';
 import { CardProps } from 'types';
 
 const Card: React.FC<CardProps> = ({ cardData }): JSX.Element => {
+  console.log(cardData);
   return (
     <div className={styles.cardWrapper} data-testid="card">
       <h2> {cardData.name}</h2>

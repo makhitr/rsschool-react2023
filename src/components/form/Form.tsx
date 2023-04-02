@@ -1,160 +1,113 @@
-import React, { FormEvent } from 'react';
-import { FormProps, FormState, IFormCard } from 'types';
+import React from 'react';
+import { FormProps, IFormCard } from 'types';
 import styles from './Form.module.css';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
-class Form extends React.Component<FormProps, FormState> {
-  form: React.RefObject<HTMLFormElement>;
-  nameInput: React.RefObject<HTMLInputElement>;
-  dateInput: React.RefObject<HTMLInputElement>;
-  aliveInput: React.RefObject<HTMLInputElement>;
-  selectSpecies: React.RefObject<HTMLSelectElement>;
-  genderMaleInput: React.RefObject<HTMLInputElement>;
-  genderFemaleInput: React.RefObject<HTMLInputElement>;
-  fileInput: React.RefObject<HTMLInputElement>;
+const Form: React.FC<FormProps> = ({ createCard }): JSX.Element => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState,
+    formState: { errors, isSubmitSuccessful },
+  } = useForm<IFormCard>({ mode: 'all' });
 
-  constructor(props: FormProps) {
-    super(props);
-    this.state = {
-      errors: [],
-      cardData: null,
-      completed: false,
-    };
-    this.form = React.createRef();
-    this.nameInput = React.createRef();
-    this.dateInput = React.createRef();
-    this.aliveInput = React.createRef();
-    this.selectSpecies = React.createRef();
-    this.genderMaleInput = React.createRef();
-    this.genderFemaleInput = React.createRef();
-    this.fileInput = React.createRef();
-  }
-
-  validateForm = () => {
-    this.setState((prevState: FormState) => ({ ...prevState, errors: [] }));
-    if (this.nameInput.current?.value?.length === 0) {
-      this.setState((prevState: FormState) => ({
-        ...prevState,
-        errors: [...prevState.errors, 'name'],
-      }));
-    }
-    if (!this.aliveInput.current?.checked) {
-      this.setState((prevState: FormState) => ({
-        ...prevState,
-        errors: [...prevState.errors, 'alive'],
-      }));
-    }
-    if (!this.dateInput?.current!.value || new Date(this.dateInput.current.value) > new Date()) {
-      this.setState((prevState: FormState) => ({
-        ...prevState,
-        errors: [...prevState.errors, 'date'],
-      }));
-    }
-    if (!this.genderMaleInput.current?.checked && !this.genderFemaleInput.current?.checked) {
-      this.setState((prevState: FormState) => ({
-        ...prevState,
-        errors: [...prevState.errors, 'gender'],
-      }));
-    }
-    if (
-      !this.fileInput.current?.files ||
-      !['image/jpg', 'image/jpeg', 'image/png'].includes(this.fileInput.current.files[0]?.type)
-    ) {
-      this.setState((prevState: FormState) => ({
-        ...prevState,
-        errors: [...prevState.errors, 'file'],
-      }));
-    }
+  const onSubmit: SubmitHandler<IFormCard> = async (data) => {
+    console.log(data);
+    createCard(data);
   };
 
-  handleSubmit = async (event: FormEvent) => {
-    event.preventDefault();
-    await this.validateForm();
-    if (this.state.errors.length === 0) {
-      await this.setState(
-        (prevState: FormState): FormState => ({
-          ...prevState,
-          completed: true,
-          cardData: {
-            name: this.nameInput.current!.value,
-            created: this.dateInput.current!.value,
-            status: this.aliveInput.current!.checked,
-            species: this.selectSpecies.current!.value,
-            gender: this.genderFemaleInput.current!.checked ? 'female' : 'male',
-            image: URL.createObjectURL(this.fileInput.current!.files![0]),
-          },
-        })
-      );
-      this.props.createCard(this.state.cardData as IFormCard);
-      this.form.current?.reset();
+  React.useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
     }
-  };
+  }, [formState, isSubmitSuccessful, reset]);
 
-  render() {
-    return (
-      <form
-        onSubmit={this.handleSubmit}
-        className={styles.formWrapper}
-        ref={this.form}
-        data-testid="form"
-      >
-        {this.state.completed && <p>Your data has been saved </p>}
+  return (
+    <form className={styles.formWrapper} onSubmit={handleSubmit(onSubmit)}>
+      <label>
+        Full Name:
+        <input
+          type="text"
+          {...register('name', {
+            required: 'Should not be empty',
+            minLength: {
+              value: 3,
+              message: 'Length must be 3 or more',
+            },
+            pattern: {
+              value: /^[A-Z]/,
+              message: 'Name should be capitalized',
+            },
+          })}
+        />
+        <div className={styles.error}>{errors.name?.message}</div>
+      </label>
+      <label>
+        Created:
+        <input
+          type="date"
+          {...register('created', {
+            required: 'Please choose the date',
+            validate: (value) => {
+              return new Date(value) < new Date() || 'Choose the data in the past';
+            },
+          })}
+        />
+      </label>
+      <div className={styles.error}>{errors.created?.message}</div>
+      <label>
+        Species:
+        <select id="species" {...register('species')}>
+          <option value="human">Human</option>
+          <option value="alien">Alien</option>
+          <option value="humanoid">Humanoid</option>
+          <option value="mythological creature">Mythological Creature</option>
+        </select>
+      </label>
+      <div className={styles.error}></div>
+      <label>
+        Alive?
+        <input type="checkbox" {...register('status', { required: 'Please choose your status' })} />
+      </label>
+      <div className={styles.error}>{errors.status?.message}</div>
+      <div>
         <label>
-          Full Name:
-          <input type="text" ref={this.nameInput} name="name" />
+          Male
+          <input
+            type="radio"
+            {...register('gender', { required: 'Please choose gender' })}
+            value="Male"
+          />
         </label>
-        <div className={styles.error}>
-          {this.state.errors.includes('name') && <p>Should be not empty</p>}
-        </div>
         <label>
-          Created:
-          <input type="date" ref={this.dateInput} />
+          Female
+          <input
+            type="radio"
+            {...register('gender', { required: 'Please choose gender' })}
+            value="Female"
+          />
         </label>
-        <div className={styles.error}>
-          {this.state.errors.includes('date') && <p>Choose the data in the past</p>}
-        </div>
-        <label>
-          Species:
-          <select id="species" name="species" ref={this.selectSpecies}>
-            <option value="human">Human</option>
-            <option value="alien">Alien</option>
-            <option value="humanoid">Humanoid</option>
-            <option value="mythological creature">Mythological Creature</option>
-          </select>
-        </label>
-        <div className={styles.error}></div>
-        <label>
-          Alive?
-          <input type="checkbox" ref={this.aliveInput} />
-        </label>
-        <div className={styles.error}>
-          {this.state.errors.includes('alive') && <p>It should be alive?</p>}
-        </div>
-        <div>
-          <label>
-            Male
-            <input type="radio" ref={this.genderMaleInput} name="gender" />
-          </label>
-          <label>
-            Female
-            <input type="radio" ref={this.genderFemaleInput} name="gender" />
-          </label>
-          <div className={styles.error}>
-            {this.state.errors.includes('gender') && <p>Please choose gender</p>}
-          </div>
-        </div>
-        <label>
-          Upload photo
-          <input type="file" ref={this.fileInput} />
-        </label>
-        <div className={styles.error}>
-          {this.state.errors.includes('file') && (
-            <p>Please choose image in jpg, jpeg, png format</p>
-          )}
-        </div>
-        <button>Submit</button>
-      </form>
-    );
-  }
-}
-
+        <div className={styles.error}>{errors.gender?.message}</div>
+      </div>
+      <label>
+        Upload photo
+        <input
+          type="file"
+          {...register('image', {
+            required: 'Please load pic',
+            validate: (value: unknown) => {
+              return (
+                ['image/jpg', 'image/jpeg', 'image/png'].includes((value as FileList)[0].type) ||
+                'Please choose image in jpg, jpeg, png format'
+              );
+            },
+          })}
+        />
+      </label>
+      <div className={styles.error}>{errors.image?.message}</div>
+      <button>Add Character</button>
+    </form>
+  );
+};
 export default Form;
