@@ -1,13 +1,26 @@
-import { useState } from 'react';
-import Card from '../../components/card/Card';
+import { useEffect, useState } from 'react';
 import SearchBar from '../../components/searchBar/SearchBar';
 import styles from './MainPage.module.css';
-import data from '../../data';
+import CardsList from '../../components/cardsList/CardsList';
 
 const MainPage: React.FC = (): JSX.Element => {
-  const [cardData, setCardData] = useState(data);
+  const [cardData, setCardData] = useState([]);
 
-  const listItems = cardData.map((card) => <Card key={card.id} cardData={card} />);
+  useEffect(() => {
+    try {
+      fetch('https://rickandmortyapi.com/api/character')
+        .then((res) => {
+          if (!res.ok) {
+            throw Error('Something wrong');
+          } else {
+            return res.json();
+          }
+        })
+        .then((data) => setCardData(data.results.slice(0, 10)));
+    } catch (err) {
+      console.log((err as Error).message);
+    }
+  }, []);
 
   return (
     <div data-testid="main-page">
@@ -15,11 +28,8 @@ const MainPage: React.FC = (): JSX.Element => {
         <h2>Main Page</h2>
       </header>
       <SearchBar />
-      {listItems.length && (
-        <div className={styles.cardSection} data-testid="cards-list">
-          {listItems}
-        </div>
-      )}
+
+      <CardsList cards={cardData} />
     </div>
   );
 };
