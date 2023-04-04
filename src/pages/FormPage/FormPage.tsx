@@ -1,13 +1,13 @@
 import CardsList from '../../components/cardsList/CardsList';
 import React from 'react';
-import { IFormCard } from 'types';
+import { IFormCardModified } from 'types';
 import Form from '../../components/form/Form';
 import styles from './FormPage.module.css';
 
 const FormPage: React.FC = (): JSX.Element => {
-  const [cardsList, setCardsList] = React.useState<IFormCard[]>([]);
+  const [cardsList, setCardsList] = React.useState<IFormCardModified[]>([]);
 
-  const createCard = (card: IFormCard) => {
+  const createCard = (card: IFormCardModified) => {
     setCardsList((prevState) => [...prevState, card]);
   };
 

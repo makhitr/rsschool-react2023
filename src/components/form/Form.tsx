@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormProps, IFormCard } from 'types';
+import { FormProps, IFormCard, IFormCardModified } from 'types';
 import styles from './Form.module.css';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
@@ -14,9 +14,14 @@ const Form: React.FC<FormProps> = ({ createCard }): JSX.Element => {
     formState: { errors, isSubmitSuccessful },
   } = useForm<IFormCard>({ mode: 'all' });
 
+  const modifyData = (data: IFormCard) => {
+    const imgSrc = URL.createObjectURL(data.image[0]);
+    return { ...data, image: imgSrc };
+  };
+
   const onSubmit: SubmitHandler<IFormCard> = async (data) => {
-    console.log(data);
-    createCard(data);
+    const newData: IFormCardModified = await modifyData(data);
+    createCard(newData);
     setIsCompleted(true);
   };
 

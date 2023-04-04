@@ -1,13 +1,11 @@
-import { useState } from 'react';
+import React from 'react';
 import Card from '../../components/card/Card';
 import SearchBar from '../../components/searchBar/SearchBar';
 import styles from './MainPage.module.css';
 import data from '../../data';
 
 const MainPage: React.FC = (): JSX.Element => {
-  const [cardData, setCardData] = useState(data);
-
-  const listItems = cardData.map((card) => <Card key={card.id} cardData={card} />);
+  const listItems = data.map((card) => <Card key={card.id} cardData={card} />);
 
   return (
     <div data-testid="main-page">
