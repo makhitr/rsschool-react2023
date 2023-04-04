@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import SearchBar from '../../components/searchBar/SearchBar';
-import styles from './MainPage.module.css';
 import CardsList from '../../components/cardsList/CardsList';
 
 const MainPage: React.FC = (): JSX.Element => {
