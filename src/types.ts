@@ -20,7 +20,7 @@ export interface ICard {
 }
 
 export type FormProps = {
-  createCard: (card: IFormCard) => void;
+  createCard: (card: IFormCardModified) => void;
 };
 
 export interface IFormCard {
@@ -32,10 +32,18 @@ export interface IFormCard {
   image: FileList;
 }
 
+export interface IFormCardModified {
+  name: string;
+  created: string;
+  status: boolean;
+  species: string;
+  gender: string;
+  image: string;
+}
 export type CardProps = {
-  cardData: ICard | IFormCard;
+  cardData: ICard | IFormCardModified;
 };
 
 export type CardsListProps = {
-  cards: ICard[] | IFormCard[];
+  cards: ICard[] | IFormCardModified[];
 };

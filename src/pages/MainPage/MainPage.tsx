@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import SearchBar from '../../components/searchBar/SearchBar';
 import CardsList from '../../components/cardsList/CardsList';
@@ -27,7 +28,6 @@ const MainPage: React.FC = (): JSX.Element => {
         <h2>Main Page</h2>
       </header>
       <SearchBar />
-
       <CardsList cards={cardData} />
     </div>
   );
