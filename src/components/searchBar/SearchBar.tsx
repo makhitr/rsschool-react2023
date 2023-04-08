@@ -5,7 +5,9 @@ const SearchBar: React.FC = (): JSX.Element => {
   const [searchValue, setSearchValue] = React.useState(localStorage.getItem('searchValue') || '');
 
   // React.useEffect(() => setSearchValue(localStorage.getItem('searchValue') || ''), []);
-  React.useEffect(() => localStorage.setItem('searchValue', searchValue), [searchValue]);
+  React.useEffect(() => {
+    return () => localStorage.setItem('searchValue', searchValue);
+  }, [searchValue]);
 
   const setValue = (event: React.FormEvent) => {
     const { value } = event.target as HTMLInputElement;
