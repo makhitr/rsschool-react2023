@@ -1,36 +1,23 @@
+import CardsList from '../../components/cardsList/CardsList';
 import React from 'react';
-import { FormPageState, IFormCard } from 'types';
-import Card from '../../components/card/Card';
+import { IFormCardModified } from 'types';
 import Form from '../../components/form/Form';
 import styles from './FormPage.module.css';
 
-class FormPage extends React.Component {
-  state: FormPageState = {
-    cardList: [],
+const FormPage: React.FC = (): JSX.Element => {
+  const [cardsList, setCardsList] = React.useState<IFormCardModified[]>([]);
+
+  const createCard = (card: IFormCardModified) => {
+    setCardsList((prevState) => [...prevState, card]);
   };
 
-  createCard = (card: IFormCard) => {
-    this.setState((prevState: FormPageState) => ({
-      ...prevState,
-      cardList: [...prevState.cardList, card],
-    }));
-  };
-
-  render() {
-    const listItems = this.state.cardList.map((card, id) => (
-      <Card key={`card.name-${id}`} cardData={card} />
-    ));
-
-    return (
-      <div className={styles.mainWrapper}>
-        Add your favourite character
-        <Form createCard={this.createCard} />
-        <div className={styles.cardSection} data-testid="cards-list">
-          {this.state.cardList && listItems}
-        </div>
-      </div>
-    );
-  }
-}
+  return (
+    <div className={styles.mainWrapper} data-testid="form-page">
+      Add your favourite character
+      <Form createCard={createCard} />
+      <CardsList cards={cardsList} />
+    </div>
+  );
+};
 
 export default FormPage;

@@ -14,37 +14,36 @@ export interface ICard {
     url: string;
   };
   image: string;
-  episode: [];
+  episode: string[];
   url: string;
   created: string;
 }
 
-export type SearchBarState = {
-  searchValue: string;
-};
-
-export type FormState = {
-  errors: string[];
-  cardData: IFormCard | null;
-  completed: boolean;
-};
-
 export type FormProps = {
-  createCard: (card: IFormCard) => void;
+  createCard: (card: IFormCardModified) => void;
 };
+
 export interface IFormCard {
   name: string;
   created: string;
   status: boolean;
   species: string;
   gender: string;
-  image?: string;
+  image: FileList;
 }
 
+export interface IFormCardModified {
+  name: string;
+  created: string;
+  status: boolean;
+  species: string;
+  gender: string;
+  image: string;
+}
 export type CardProps = {
-  cardData: ICard | IFormCard;
+  cardData: ICard | IFormCardModified;
 };
 
-export type FormPageState = {
-  cardList: IFormCard[];
+export type CardsListProps = {
+  cards: ICard[] | IFormCardModified[];
 };

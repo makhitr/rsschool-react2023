@@ -2,25 +2,17 @@ import React from 'react';
 import styles from './Card.module.css';
 import { CardProps } from 'types';
 
-class Card extends React.Component<CardProps> {
-  constructor(props: CardProps) {
-    super(props);
-  }
-
-  render(): React.ReactNode {
-    const { image, name, gender, status, created, species } = this.props.cardData;
-    const date = new Date(created).toLocaleDateString();
-    return (
-      <div className={styles.cardWrapper} data-testid="card">
-        <h2> {name}</h2>
-        <img src={image} />
-        <h3> {gender}</h3>
-        <p> {status}</p>
-        <p>species: {species}</p>
-        <p>created: {date}</p>
-      </div>
-    );
-  }
-}
+const Card: React.FC<CardProps> = ({ cardData }): JSX.Element => {
+  return (
+    <div className={styles.cardWrapper} data-testid="card">
+      <h2> {cardData.name}</h2>
+      <img src={cardData.image} />
+      <h3> {cardData.gender}</h3>
+      <p> {cardData.status}</p>
+      <p>species: {cardData.species}</p>
+      <p>created: {new Date(cardData.created).toLocaleDateString()}</p>
+    </div>
+  );
+};
 
 export default Card;

@@ -5,17 +5,15 @@ import ErrorPage from '../pages/ErrorPage/ErrorPage';
 import MainPage from '../pages/MainPage/MainPage';
 import FormPage from '../pages/FormPage/FormPage';
 
-class AppRouter extends React.Component {
-  render(): React.ReactNode {
-    return (
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/form" element={<FormPage />} />
-        <Route path="/*" element={<ErrorPage />} />
-      </Routes>
-    );
-  }
-}
+const AppRouter: React.FC = (): JSX.Element => {
+  return (
+    <Routes>
+      <Route path="/" element={<MainPage />} />
+      <Route path="/about" element={<AboutPage />} />
+      <Route path="/form" element={<FormPage />} />
+      <Route path="/*" element={<ErrorPage />} />
+    </Routes>
+  );
+};
 
 export default AppRouter;
