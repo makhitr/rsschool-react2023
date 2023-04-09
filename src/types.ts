@@ -22,6 +22,9 @@ export interface ICard {
 export type FormProps = {
   createCard: (card: IFormCardModified) => void;
 };
+export type FullCardProps = {
+  id: number;
+};
 
 export type SearchBarProps = {
   search: (value: string) => void;
@@ -49,7 +52,7 @@ export type CardProps = {
 };
 
 export type CardsListProps = {
-  cards: ICard[] | IFormCardModified[];
+  cards: ICard[];
   // cards: ICardPreview[];
 };
 

@@ -1,16 +1,16 @@
 import React from 'react';
-import Card from '../card/Card';
-import { CardsListProps, ICard, IFormCardModified } from '../../types';
+import { CardsListProps, ICard } from '../../types';
 import Modal from '../modal/Modal';
 import styles from './CardsList.module.css';
 import CardPreview from '../cardPreview/CardPreview';
+import FullCard from '../../components/fullCard/FullCard';
 
 const CardsList: React.FC<CardsListProps> = ({ cards }): JSX.Element => {
   const [showModal, setShowModal] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState<ICard | IFormCardModified | null>(null);
+  const [selectedCardId, setSelectedCardId] = React.useState<number | null>(null);
 
-  function handleClick(card: ICard | IFormCardModified): void {
-    setSelectedCard(card);
+  function handleClick(card: ICard): void {
+    setSelectedCardId(card.id);
     setShowModal(true);
   }
 
@@ -28,7 +28,7 @@ const CardsList: React.FC<CardsListProps> = ({ cards }): JSX.Element => {
           >
             <div className={styles.cardModal}>
               <span className={styles.close} onClick={() => setShowModal(false)} />
-              <Card cardData={selectedCard} />
+              {selectedCardId && <FullCard id={selectedCardId} />}
             </div>
           </div>
         </Modal>
