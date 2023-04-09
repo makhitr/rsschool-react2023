@@ -23,6 +23,10 @@ export type FormProps = {
   createCard: (card: IFormCardModified) => void;
 };
 
+export type SearchBarProps = {
+  search: (value: string) => void;
+};
+
 export interface IFormCard {
   name: string;
   created: string;

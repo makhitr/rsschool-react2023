@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './SearchBar.module.css';
+import { SearchBarProps } from '../../types';
 
-const SearchBar: React.FC = (): JSX.Element => {
+const SearchBar: React.FC<SearchBarProps> = ({ search }): JSX.Element => {
   const [searchValue, setSearchValue] = React.useState(localStorage.getItem('searchValue') || '');
 
-  // React.useEffect(() => setSearchValue(localStorage.getItem('searchValue') || ''), []);
   React.useEffect(() => {
     return () => localStorage.setItem('searchValue', searchValue);
   }, [searchValue]);
@@ -14,8 +14,14 @@ const SearchBar: React.FC = (): JSX.Element => {
     setSearchValue(value);
   };
 
+  const resetInputField = () => {
+    setSearchValue('');
+  };
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    // search(searchValue);
+    resetInputField();
   };
 
   return (
@@ -28,7 +34,9 @@ const SearchBar: React.FC = (): JSX.Element => {
           onChange={setValue}
           value={searchValue}
         />
-        <button className={styles.searchBarButton}>Search</button>
+        <button className={styles.searchBarButton} onClick={() => search(searchValue)}>
+          Search
+        </button>
       </form>
     </div>
   );

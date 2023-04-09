@@ -1,34 +1,71 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
 import SearchBar from '../../components/searchBar/SearchBar';
 import CardsList from '../../components/cardsList/CardsList';
+import Spinner from '../../components/spinner/Spinner';
 
 const MainPage: React.FC = (): JSX.Element => {
-  const [cardData, setCardData] = useState([]);
+  const [error, setError] = React.useState<Error | null>(null);
+  const [isLoaded, setIsLoaded] = React.useState(false);
+  const [cardData, setCardData] = React.useState([]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     try {
       fetch('https://rickandmortyapi.com/api/character')
         .then((res) => {
           if (!res.ok) {
-            throw Error('Something wrong');
+            setIsLoaded(true);
+            throw Error();
           } else {
             return res.json();
           }
         })
-        .then((data) => setCardData(data.results.slice(0, 10)));
-    } catch (err) {
-      console.log((err as Error).message);
+        .then((data) => {
+          setIsLoaded(true);
+          setCardData(data.results.slice(0, 10));
+        });
+    } catch (error) {
+      setIsLoaded(true);
+      setError(error as Error);
+      console.log((error as Error).message);
     }
   }, []);
+
+  const handleSearch = (value: string) => {
+    setIsLoaded(false);
+    setError(null);
+    fetch(`https://rickandmortyapi.com/api/character/?name=${value}`)
+      .then((res) => {
+        if (!res.ok) {
+          setIsLoaded(true);
+          throw Error();
+        } else {
+          return res.json();
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        setIsLoaded(true);
+        setCardData(data.results.slice(0, 10));
+      })
+      .catch((error) => {
+        setIsLoaded(true);
+        setError(error);
+      });
+  };
 
   return (
     <div data-testid="main-page">
       <header>
         <h2>Main Page</h2>
       </header>
-      <SearchBar />
-      <CardsList cards={cardData} />
+      <SearchBar search={handleSearch} />
+      {error ? (
+        <p>No information is available for a page</p>
+      ) : !isLoaded ? (
+        <Spinner />
+      ) : (
+        <CardsList cards={cardData} />
+      )}
     </div>
   );
 };
