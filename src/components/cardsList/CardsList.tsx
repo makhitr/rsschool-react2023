@@ -1,11 +1,18 @@
 import React from 'react';
 import Card from '../card/Card';
-import { CardsListProps } from '../../types';
-import Modal from '../../components/modal/Modal';
+import { CardsListProps, ICard, IFormCardModified } from '../../types';
+import Modal from '../modal/Modal';
 import styles from './CardsList.module.css';
+import CardPreview from '../cardPreview/CardPreview';
 
 const CardsList: React.FC<CardsListProps> = ({ cards }): JSX.Element => {
   const [showModal, setShowModal] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState<ICard | IFormCardModified | null>(null);
+
+  function handleClick(card: ICard | IFormCardModified): void {
+    setSelectedCard(card);
+    setShowModal(true);
+  }
 
   return (
     <>
@@ -18,11 +25,10 @@ const CardsList: React.FC<CardsListProps> = ({ cards }): JSX.Element => {
               if (event.currentTarget === event.target) {
                 setShowModal(false);
               }
-              console.log(event);
             }}
           >
             <div className={styles.cardModal}>
-              <h1>I am a card</h1>
+              <Card cardData={selectedCard} />
               <button onClick={() => setShowModal(false)}>close</button>
             </div>
           </div>
@@ -30,7 +36,7 @@ const CardsList: React.FC<CardsListProps> = ({ cards }): JSX.Element => {
       )}
       <div className={styles.cardSection} data-testid="cards-list">
         {cards.map((card, id) => (
-          <Card key={`card.name-${id}`} cardData={card} />
+          <CardPreview key={`card.name-${id}`} cardData={card} onClick={() => handleClick(card)} />
         ))}
       </div>
     </>

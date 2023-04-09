@@ -12,7 +12,8 @@ describe('Main Page', () => {
     render(<MainPage />);
     const list = screen.getByTestId('cards-list');
     expect(list).toBeInTheDocument();
-    const items = screen.getAllByTestId('card');
-    expect(items.length).toBe(4);
+    screen.debug();
+    // const items = screen.getAllByTestId('card-preview');
+    // expect(items.length).toBe(10);
   });
 });

@@ -41,9 +41,22 @@ export interface IFormCardModified {
   image: string;
 }
 export type CardProps = {
-  cardData: ICard | IFormCardModified;
+  cardData: ICard | IFormCardModified | null;
 };
 
 export type CardsListProps = {
   cards: ICard[] | IFormCardModified[];
+  // cards: ICardPreview[];
+};
+
+export type ICardPreview = {
+  id: number;
+  name: string;
+  gender: string;
+  image: string;
+};
+
+export type CardPreviewProps = {
+  cardData: ICard | IFormCardModified;
+  onClick: () => void;
 };
