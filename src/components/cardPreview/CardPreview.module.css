@@ -1,7 +1,17 @@
 .cardPreviewWrapper {
   width: 200px;
-  background-color:  rgb(4, 158, 4);
+  background-color: rgb(5, 241, 5);
   cursor: pointer;
+  border-radius: 2px;
+}
+.cardPreviewHeader {
+  min-height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  text-transform: uppercase;
+  padding: 6px;
 }
 
 .cardPreviewWrapper img {

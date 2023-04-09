@@ -16,7 +16,6 @@ const CardsList: React.FC<CardsListProps> = ({ cards }): JSX.Element => {
 
   return (
     <>
-      <button onClick={() => setShowModal(true)}>show Modal</button>
       {showModal && (
         <Modal>
           <div
@@ -28,8 +27,8 @@ const CardsList: React.FC<CardsListProps> = ({ cards }): JSX.Element => {
             }}
           >
             <div className={styles.cardModal}>
+              <span className={styles.close} onClick={() => setShowModal(false)} />
               <Card cardData={selectedCard} />
-              <button onClick={() => setShowModal(false)}>close</button>
             </div>
           </div>
         </Modal>
