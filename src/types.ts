@@ -52,18 +52,19 @@ export type CardProps = {
 };
 
 export type CardsListProps = {
-  cards: ICard[];
+  cards: ICard[] | IFormCardModified[];
+  // cards: CardProps[];
   // cards: ICardPreview[];
 };
 
 export type ICardPreview = {
-  id: number;
+  id?: number;
   name: string;
   gender: string;
   image: string;
 };
 
 export type CardPreviewProps = {
-  cardData: ICard | IFormCardModified;
+  cardData: ICardPreview;
   onClick: () => void;
 };

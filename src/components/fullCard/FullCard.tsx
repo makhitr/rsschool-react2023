@@ -13,7 +13,7 @@ const FullCard: React.FC<FullCardProps> = ({ id }): JSX.Element => {
   return (
     <>
       {cardData && (
-        <div className={styles.cardWrapper} data-testid="card">
+        <div className={styles.cardWrapper} data-testid="full-card">
           <header className={styles.cardHeader}>
             <h2> {cardData.name}</h2>
           </header>
