@@ -9,8 +9,13 @@ const MainPage: React.FC = (): JSX.Element => {
   const [cardData, setCardData] = React.useState([]);
 
   React.useEffect(() => {
+    const value = localStorage.getItem('searchValue');
+    const url = value
+      ? `https://rickandmortyapi.com/api/character/?name=${value}`
+      : 'https://rickandmortyapi.com/api/character';
+    console.log(localStorage.getItem('searchValue'));
     try {
-      fetch('https://rickandmortyapi.com/api/character')
+      fetch(url)
         .then((res) => {
           if (!res.ok) {
             setIsLoaded(true);
@@ -43,7 +48,6 @@ const MainPage: React.FC = (): JSX.Element => {
         }
       })
       .then((data) => {
-        console.log(data);
         setIsLoaded(true);
         setCardData(data.results.slice(0, 10));
       })

@@ -14,14 +14,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ search }): JSX.Element => {
     setSearchValue(value);
   };
 
-  const resetInputField = () => {
-    setSearchValue('');
-  };
-
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    // search(searchValue);
-    resetInputField();
   };
 
   return (
