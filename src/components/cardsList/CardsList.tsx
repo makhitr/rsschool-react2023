@@ -17,19 +17,10 @@ const CardsList: React.FC<CardsListProps> = ({ cards }): JSX.Element => {
   return (
     <>
       {showModal && (
-        <Modal>
-          <div
-            className={styles.overlay}
-            onClick={(event) => {
-              if (event.currentTarget === event.target) {
-                setShowModal(false);
-              }
-            }}
-          >
-            <div className={styles.cardModal}>
-              <span className={styles.close} onClick={() => setShowModal(false)} />
-              {selectedCardId && <FullCard id={selectedCardId} />}
-            </div>
+        <Modal onClose={setShowModal}>
+          <div className={styles.cardModal}>
+            <span className={styles.close} onClick={() => setShowModal(false)} />
+            {selectedCardId && <FullCard id={selectedCardId} />}
           </div>
         </Modal>
       )}
