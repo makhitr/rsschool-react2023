@@ -53,8 +53,6 @@ export type CardProps = {
 
 export type CardsListProps = {
   cards: ICard[] | IFormCardModified[];
-  // cards: CardProps[];
-  // cards: ICardPreview[];
 };
 
 export type ICardPreview = {

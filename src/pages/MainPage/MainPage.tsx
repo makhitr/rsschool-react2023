@@ -13,25 +13,7 @@ const MainPage: React.FC = (): JSX.Element => {
     const url = value
       ? `https://rickandmortyapi.com/api/character/?name=${value}`
       : 'https://rickandmortyapi.com/api/character';
-    // try {
-    //   fetch(url)
-    //     .then((res) => {
-    //       if (!res.ok) {
-    //         setIsLoaded(true);
-    //         throw Error();
-    //       } else {
-    //         return res.json();
-    //       }
-    //     })
-    //     .then((data) => {
-    //       setIsLoaded(true);
-    //       setCardData(data.results.slice(0, 10));
-    //     });
-    // } catch (error) {
-    //   setIsLoaded(true);
-    //   setError(error as Error);
-    //   console.log((error as Error).message);
-    // }
+
     const fetchData = async () => {
       await fetch(url)
         .then((res) => res.json())

@@ -37,6 +37,7 @@ describe('one Card test', () => {
     await act(async () => {
       render(<FullCard id={1} />);
     });
+    // render(<FullCard id={1} />);
     const card = screen.getByTestId('full-card');
     expect(card).toBeInTheDocument();
     const image = screen.getByRole('img');
