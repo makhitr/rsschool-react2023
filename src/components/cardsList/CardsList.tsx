@@ -34,9 +34,16 @@ const CardsList: React.FC<CardsListProps> = ({ cards }): JSX.Element => {
         </Modal>
       )}
       <div className={styles.cardSection} data-testid="cards-list">
-        {cards.map((card, id) => (
-          <CardPreview key={`card.name-${id}`} cardData={card} onClick={() => handleClick(card)} />
-        ))}
+        {cards.map(
+          (card, id) =>
+            'location' in card && (
+              <CardPreview
+                key={`card.name-${id}`}
+                cardData={card}
+                onClick={() => handleClick(card)}
+              />
+            )
+        )}
       </div>
     </>
   );
