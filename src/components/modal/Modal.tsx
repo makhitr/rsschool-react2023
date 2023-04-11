@@ -1,10 +1,6 @@
-import { useEffect, useRef, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import styles from '../CardsList/CardsList.module.css';
-
-const modalRoot = document.createElement('div');
-modalRoot.setAttribute('id', 'modal-root');
-document.body.appendChild(modalRoot);
 
 type ModalProps = {
   onClose: (arg: boolean) => void;
@@ -12,17 +8,6 @@ type ModalProps = {
 };
 
 const Modal = ({ onClose, children }: ModalProps) => {
-  const elRef = useRef<HTMLDivElement | null>(null);
-  if (!elRef.current) elRef.current = document.createElement('div');
-
-  useEffect(() => {
-    const el = elRef.current!;
-    modalRoot.appendChild(el);
-    return () => {
-      modalRoot.removeChild(el);
-    };
-  }, []);
-
   return createPortal(
     <div
       className={styles.overlay}
@@ -34,7 +19,7 @@ const Modal = ({ onClose, children }: ModalProps) => {
     >
       {children}
     </div>,
-    elRef.current
+    document.body
   );
 };
 
