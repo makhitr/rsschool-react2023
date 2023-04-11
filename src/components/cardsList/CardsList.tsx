@@ -26,13 +26,9 @@ const CardsList: React.FC<CardsListProps> = ({ cards }): JSX.Element => {
       )}
       <div className={styles.cardSection} data-testid="cards-list">
         {cards.map(
-          (card, id) =>
+          (card) =>
             'location' in card && (
-              <CardPreview
-                key={`card.name-${id}`}
-                cardData={card}
-                onClick={() => handleClick(card)}
-              />
+              <CardPreview key={card.id} cardData={card} onClick={() => handleClick(card)} />
             )
         )}
       </div>

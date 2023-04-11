@@ -8,33 +8,8 @@ const MainPage: React.FC = (): JSX.Element => {
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [cardData, setCardData] = React.useState([]);
 
-  React.useEffect(() => {
-    const value = localStorage.getItem('searchValue');
-    const url = value
-      ? `https://rickandmortyapi.com/api/character/?name=${value}`
-      : 'https://rickandmortyapi.com/api/character';
-
-    const fetchData = async () => {
-      await fetch(url)
-        .then((res) => res.json())
-        .then((data) => {
-          setIsLoaded(true);
-          setCardData(data.results.slice(0, 10));
-        })
-        .catch((error) => {
-          setIsLoaded(true);
-          setError(error as Error);
-          console.log((error as Error).message);
-        });
-    };
-
-    fetchData();
-  }, []);
-
-  const handleSearch = (value: string) => {
-    setIsLoaded(false);
-    setError(null);
-    fetch(`https://rickandmortyapi.com/api/character/?name=${value}`)
+  const fetchData = async (url: string) => {
+    await fetch(url)
       .then((res) => {
         if (!res.ok) {
           setIsLoaded(true);
@@ -49,8 +24,23 @@ const MainPage: React.FC = (): JSX.Element => {
       })
       .catch((error) => {
         setIsLoaded(true);
-        setError(error);
+        setError(error as Error);
       });
+  };
+  React.useEffect(() => {
+    const value = localStorage.getItem('searchValue');
+    const url = value
+      ? `https://rickandmortyapi.com/api/character/?name=${value}`
+      : 'https://rickandmortyapi.com/api/character';
+
+    fetchData(url);
+  }, []);
+
+  const handleSearch = (value: string) => {
+    const url = `https://rickandmortyapi.com/api/character/?name=${value}`;
+    setIsLoaded(false);
+    setError(null);
+    fetchData(url);
   };
 
   return (
