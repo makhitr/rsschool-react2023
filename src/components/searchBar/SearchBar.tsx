@@ -1,36 +1,32 @@
 import React from 'react';
 import styles from './SearchBar.module.css';
-import { SearchBarProps } from '../../types';
+import { useDispatch } from 'react-redux';
+import { setValue } from '../../app/characterSlice';
+import { ISearch, SearchBarProps } from '../../types';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 const SearchBar: React.FC<SearchBarProps> = ({ search }): JSX.Element => {
-  const [searchValue, setSearchValue] = React.useState(localStorage.getItem('searchValue') || '');
+  const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    return () => localStorage.setItem('searchValue', searchValue);
-  }, [searchValue]);
+  const { register, handleSubmit } = useForm<ISearch>({ mode: 'all' });
 
-  const setValue = (event: React.FormEvent) => {
-    const { value } = event.target as HTMLInputElement;
-    setSearchValue(value);
-  };
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
+  const onSubmit: SubmitHandler<ISearch> = (data) => {
+    const { searchValue } = data;
+    dispatch(setValue(searchValue));
   };
 
   return (
     <div className={styles.searchBarWrapper}>
-      <form className={styles.searchBarForm} onSubmit={handleSubmit}>
+      <form className={styles.searchBarForm} onSubmit={handleSubmit(onSubmit)}>
         <input
           type="text"
+          {...register('searchValue', {
+            required: 'Should not be empty',
+          })}
           placeholder="Search..."
           className={styles.searchBarInput}
-          onChange={setValue}
-          value={searchValue}
         />
-        <button className={styles.searchBarButton} onClick={() => search(searchValue)}>
-          Search
-        </button>
+        <button className={styles.searchBarButton}>Search</button>
       </form>
     </div>
   );
