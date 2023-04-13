@@ -30,6 +30,10 @@ export type SearchBarProps = {
   search: (value: string) => void;
 };
 
+export interface ISearch {
+  searchValue: string;
+}
+
 export interface IFormCard {
   name: string;
   created: string;
