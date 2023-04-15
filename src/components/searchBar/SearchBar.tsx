@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './SearchBar.module.css';
 import { useDispatch } from 'react-redux';
-import { setValue } from '../../app/characterSlice';
+import { setValue } from '../../app/appSlice';
 import { ISearch, SearchBarProps } from '../../types';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-const SearchBar: React.FC<SearchBarProps> = ({ search }): JSX.Element => {
+const SearchBar: React.FC = (): JSX.Element => {
   const dispatch = useDispatch();
 
   const { register, handleSubmit } = useForm<ISearch>({ mode: 'all' });

@@ -1,11 +1,13 @@
 import React from 'react';
-import { CardsListProps, ICard } from '../../types';
+import { ICard } from '../../types';
 import Modal from '../modal/Modal';
 import styles from './CardsList.module.css';
 import CardPreview from '../cardPreview/CardPreview';
 import FullCard from '../../components/fullCard/FullCard';
+import { useSelector } from 'react-redux';
+import { RootState } from 'app/types';
 
-const CardsList: React.FC<CardsListProps> = ({ cards }): JSX.Element => {
+const CardsList: React.FC = (): JSX.Element => {
   const [showModal, setShowModal] = React.useState(false);
   const [selectedCardId, setSelectedCardId] = React.useState<number | null>(null);
 
@@ -13,6 +15,8 @@ const CardsList: React.FC<CardsListProps> = ({ cards }): JSX.Element => {
     setSelectedCardId(card.id);
     setShowModal(true);
   }
+
+  const cardsData = useSelector((state: RootState) => state.app.entities);
 
   return (
     <>
@@ -25,8 +29,8 @@ const CardsList: React.FC<CardsListProps> = ({ cards }): JSX.Element => {
         </Modal>
       )}
       <div className={styles.cardSection} data-testid="cards-list">
-        {cards.map(
-          (card) =>
+        {cardsData.map(
+          (card: ICard) =>
             'location' in card && (
               <CardPreview key={card.id} cardData={card} onClick={() => handleClick(card)} />
             )

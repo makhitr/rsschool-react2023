@@ -1,13 +1,13 @@
+import { ICard } from 'types';
 import { store } from './store';
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
 
 export interface IAppState {
-  characters: [];
-  errors: null | [];
-  value: string;
+  entities: ICard[];
+  error: null | string;
+  loading: 'idle' | 'pending' | 'succeeded' | 'failed';
+  value: null | string;
   formData: null | [];
 }
