@@ -12,25 +12,6 @@ const MainPage: React.FC = (): JSX.Element => {
   const error = useSelector((state: RootState) => state.app.error);
   const value = useSelector((state: RootState) => state.app.value);
 
-  // const fetchData = async (url: string) => {
-  //   await fetch(url)
-  //     .then((res) => {
-  //       if (!res.ok) {
-  //         setIsLoaded(true);
-  //         throw Error();
-  //       } else {
-  //         return res.json();
-  //       }
-  //     })
-  //     .then((data) => {
-  //       setIsLoaded(true);
-  //       setCardData(data.results.slice(0, 10));
-  //     })
-  //     .catch((error) => {
-  //       setIsLoaded(true);
-  //       setError(error as Error);
-  //     });
-
   React.useEffect(() => {
     const url = value
       ? `https://rickandmortyapi.com/api/character/?name=${value}`
