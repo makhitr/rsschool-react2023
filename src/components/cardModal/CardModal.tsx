@@ -3,8 +3,8 @@ import FullCard from '../fullCard/FullCard';
 import styles from './CardModal.module.css';
 import { getCardData } from '../../app/thunks';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../app/types';
-import { closeModal } from '../../app/modalSlice';
+import { AppDispatch, RootState } from '../../app/store';
+import { closeModal } from '../../app/appSlice';
 
 export const CardModal: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();

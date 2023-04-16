@@ -11,6 +11,7 @@ const initialState: IAppState = {
   selectedCard: null,
   selectedCardId: null,
   formData: [],
+  isOpen: false,
 };
 
 export const appSlice = createSlice({
@@ -25,6 +26,12 @@ export const appSlice = createSlice({
     },
     setFormCards(state, action) {
       state.formData.push({ ...action.payload });
+    },
+    openModal: (state) => {
+      state.isOpen = true;
+    },
+    closeModal: (state) => {
+      state.isOpen = false;
     },
   },
   extraReducers: (builder) => {
@@ -56,5 +63,6 @@ export const appSlice = createSlice({
   },
 });
 
-export const { setValue, setSelectedCardId, setFormCards } = appSlice.actions;
+export const { setValue, setSelectedCardId, setFormCards, openModal, closeModal } =
+  appSlice.actions;
 export default appSlice.reducer;

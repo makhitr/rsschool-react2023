@@ -1,15 +1,15 @@
 import React from 'react';
 import styles from './FullCard.module.css';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../app/types';
+import { RootState } from '../../app/store';
 
 const FullCard: React.FC = (): JSX.Element => {
   const selectedCard = useSelector((state: RootState) => state.app.selectedCard);
 
   return (
-    <>
+    <div className={styles.cardWrapper} data-testid="full-card">
       {selectedCard && (
-        <div className={styles.cardWrapper} data-testid="full-card">
+        <>
           <header className={styles.cardHeader}>
             <h2> {selectedCard.name}</h2>
           </header>
@@ -24,9 +24,9 @@ const FullCard: React.FC = (): JSX.Element => {
               <p>Created: {new Date(selectedCard.created).toLocaleDateString()}</p>
             </div>
           </main>
-        </div>
+        </>
       )}
-    </>
+    </div>
   );
 };
 

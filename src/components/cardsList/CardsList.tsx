@@ -4,12 +4,9 @@ import Modal from '../modal/Modal';
 import styles from './CardsList.module.css';
 import CardPreview from '../cardPreview/CardPreview';
 import { CardModal } from '../cardModal/CardModal';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../app/types';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../app/types';
-import { setSelectedCardId } from '../../app/appSlice';
-import { openModal } from '../../app/modalSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '../../app/store';
+import { setSelectedCardId, openModal } from '../../app/appSlice';
 
 const CardsList: React.FC = (): JSX.Element => {
   const dispatch: AppDispatch = useDispatch();
@@ -21,7 +18,7 @@ const CardsList: React.FC = (): JSX.Element => {
 
   const cardsData = useSelector((state: RootState) => state.app.entities);
 
-  const isModalOpen = useSelector((state: RootState) => state.modal.isOpen);
+  const isModalOpen = useSelector((state: RootState) => state.app.isOpen);
 
   return (
     <>

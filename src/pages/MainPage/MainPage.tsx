@@ -4,7 +4,7 @@ import CardsList from '../../components/cardsList/CardsList';
 import Spinner from '../../components/spinner/Spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCards } from '../../app/thunks';
-import { AppDispatch, RootState } from 'app/types';
+import { AppDispatch, RootState } from 'app/store';
 
 const MainPage: React.FC = (): JSX.Element => {
   const dispatch: AppDispatch = useDispatch();

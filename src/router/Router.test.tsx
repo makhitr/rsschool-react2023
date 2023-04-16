@@ -3,10 +3,15 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import { renderWithProviders } from '../utils/utils-for-tests';
 
 describe('Test App', () => {
   it('full app rendering/navigating', async () => {
-    render(<App />, { wrapper: BrowserRouter });
+    renderWithProviders(
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    );
     const mainLink = screen.getByTestId('main-link');
     const aboutLink = screen.getByTestId('about-link');
     const formLink = screen.getByTestId('form-link');

@@ -1,11 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import App from './App';
 import { MemoryRouter } from 'react-router-dom';
+import { renderWithProviders } from './utils/utils-for-tests';
 
 describe('App', () => {
   it('render App', () => {
-    render(
+    renderWithProviders(
       <MemoryRouter>
         <App />
       </MemoryRouter>

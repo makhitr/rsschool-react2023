@@ -2,13 +2,14 @@ import { it, expect, vi } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Form from './Form';
+import { renderWithProviders } from '../../utils/utils-for-tests';
 
 describe('Form', () => {
   const onSubmit = vi.fn();
-  const createCard = vi.fn();
+
   beforeEach(() => {
     onSubmit.mockClear();
-    render(<Form createCard={createCard} />);
+    renderWithProviders(<Form />);
   });
   it('render form', () => {
     const form = screen.getByTestId('form');

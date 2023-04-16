@@ -47,7 +47,7 @@ export type CardProps = {
 
 export type ICardPreview = {
   id?: number;
-  name: string; 
+  name: string;
   gender: string;
   image: string;
 };

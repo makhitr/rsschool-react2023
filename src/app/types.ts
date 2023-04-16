@@ -1,8 +1,4 @@
 import { ICard, IFormCardModified } from 'types';
-import { store } from './store';
-
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
 
 export interface IAppState {
   entities: ICard[];
@@ -13,4 +9,5 @@ export interface IAppState {
   selectedCard: null | ICard;
   selectedCardId: null | number;
   formData: IFormCardModified[];
+  isOpen: boolean;
 }

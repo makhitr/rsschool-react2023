@@ -1,16 +1,17 @@
 import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import FormPage from './FormPage';
+import { renderWithProviders } from '../../utils/utils-for-tests';
 
 describe('Form Page', () => {
   it('render form page', () => {
-    render(<FormPage />);
+    renderWithProviders(<FormPage />);
     const formPage = screen.getByTestId('form-page');
     expect(formPage).toBeInTheDocument();
   });
   it('render list cards', () => {
-    render(<FormPage />);
-    const list = screen.getByTestId('cards-list');
+    renderWithProviders(<FormPage />);
+    const list = screen.getByTestId('cardsForm-list');
     expect(list).toBeInTheDocument();
   });
 });

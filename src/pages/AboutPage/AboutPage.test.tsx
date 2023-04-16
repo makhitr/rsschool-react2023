@@ -1,9 +1,10 @@
 import { it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import AboutPage from './AboutPage';
+import { renderWithProviders } from '../../utils/utils-for-tests';
 
 it('render about page', () => {
-  render(<AboutPage />);
+  renderWithProviders(<AboutPage />);
   const aboutPageTitle = screen.getByText(/about us page/i);
   expect(aboutPageTitle).toBeInTheDocument();
 });

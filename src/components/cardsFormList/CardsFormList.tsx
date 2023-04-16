@@ -3,7 +3,7 @@ import { IFormCardModified } from '../../types';
 import styles from './CardsFormList.module.css';
 import Card from '../card/Card';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../app/types';
+import { RootState } from '../../app/store';
 
 const CardsFormList: React.FC = (): JSX.Element => {
   const cardsFormData = useSelector((state: RootState) => state.app.formData);

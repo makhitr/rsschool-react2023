@@ -1,9 +1,9 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
 import styles from '../CardsList/CardsList.module.css';
-import { AppDispatch } from 'app/types';
+import { AppDispatch } from 'app/store';
 import { useDispatch } from 'react-redux';
-import { closeModal } from '../../app/modalSlice';
+import { closeModal } from '../../app/appSlice';
 
 type ModalProps = {
   children: React.ReactNode;
