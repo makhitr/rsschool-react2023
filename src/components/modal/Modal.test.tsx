@@ -1,5 +1,4 @@
-import { it, expect, vi } from 'vitest';
-import { render } from '@testing-library/react';
+import { it, expect } from 'vitest';
 import Modal from './Modal';
 import { renderWithProviders } from '../../utils/utils-for-tests';
 

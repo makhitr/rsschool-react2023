@@ -1,5 +1,5 @@
 import { it, expect, vi } from 'vitest';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Form from './Form';
 import { renderWithProviders } from '../../utils/utils-for-tests';
