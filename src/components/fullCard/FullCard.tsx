@@ -1,12 +1,19 @@
 import React from 'react';
-import styles from './Card.module.css';
-import { CardProps } from 'types';
+import styles from './FullCard.module.css';
+import { FullCardProps, ICard } from '../../types';
 
-const Card: React.FC<CardProps> = ({ cardData }): JSX.Element => {
+const FullCard: React.FC<FullCardProps> = ({ id }): JSX.Element => {
+  const [cardData, setCardData] = React.useState<ICard | null>(null);
+
+  React.useEffect(() => {
+    fetch(`https://rickandmortyapi.com/api/character/${id}`)
+      .then((response) => response.json())
+      .then((data) => setCardData(data));
+  }, [id]);
   return (
     <>
       {cardData && (
-        <div className={styles.cardWrapper} data-testid="card">
+        <div className={styles.cardWrapper} data-testid="full-card">
           <header className={styles.cardHeader}>
             <h2> {cardData.name}</h2>
           </header>
@@ -31,4 +38,4 @@ const Card: React.FC<CardProps> = ({ cardData }): JSX.Element => {
   );
 };
 
-export default Card;
+export default FullCard;
