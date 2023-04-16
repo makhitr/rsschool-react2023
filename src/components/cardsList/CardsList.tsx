@@ -20,6 +20,7 @@ const CardsList: React.FC = (): JSX.Element => {
   };
 
   const cardsData = useSelector((state: RootState) => state.app.entities);
+
   const isModalOpen = useSelector((state: RootState) => state.modal.isOpen);
 
   return (
@@ -31,12 +32,10 @@ const CardsList: React.FC = (): JSX.Element => {
       )}
 
       <div className={styles.cardSection} data-testid="cards-list">
-        {cardsData.map(
-          (card: ICard) =>
-            'location' in card && (
-              <CardPreview key={card.id} cardData={card} onClick={() => handleClick(card.id)} />
-            )
-        )}
+        {cardsData &&
+          cardsData.map((card: ICard) => (
+            <CardPreview key={card.id} cardData={card} onClick={() => handleClick(card.id)} />
+          ))}
       </div>
     </>
   );

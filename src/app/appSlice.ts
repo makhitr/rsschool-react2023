@@ -10,7 +10,7 @@ const initialState: IAppState = {
   value: null,
   selectedCard: null,
   selectedCardId: null,
-  formData: null,
+  formData: [],
 };
 
 export const appSlice = createSlice({
@@ -22,6 +22,9 @@ export const appSlice = createSlice({
     },
     setSelectedCardId(state, action) {
       state.selectedCardId = action.payload;
+    },
+    setFormCards(state, action) {
+      state.formData.push({ ...action.payload });
     },
   },
   extraReducers: (builder) => {
@@ -53,5 +56,5 @@ export const appSlice = createSlice({
   },
 });
 
-export const { setValue, setSelectedCardId } = appSlice.actions;
+export const { setValue, setSelectedCardId, setFormCards } = appSlice.actions;
 export default appSlice.reducer;

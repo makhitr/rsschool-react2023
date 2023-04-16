@@ -1,10 +1,13 @@
 import React from 'react';
-import { FormProps, IFormCard, IFormCardModified } from 'types';
+import { IFormCard, IFormCardModified } from 'types';
 import styles from './Form.module.css';
+import { setFormCards } from '../.././app/appSlice';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 
-const Form: React.FC<FormProps> = ({ createCard }): JSX.Element => {
+const Form: React.FC = (): JSX.Element => {
   const [isCompleted, setIsCompleted] = React.useState(false);
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -16,12 +19,12 @@ const Form: React.FC<FormProps> = ({ createCard }): JSX.Element => {
 
   const modifyData = (data: IFormCard) => {
     const imgSrc = URL.createObjectURL(data.image[0]);
-    return { ...data, image: imgSrc };
+    return { ...data, id: Date.now(), image: imgSrc };
   };
 
   const onSubmit: SubmitHandler<IFormCard> = async (data) => {
     const newData: IFormCardModified = await modifyData(data);
-    createCard(newData);
+    dispatch(setFormCards(newData));
     setIsCompleted(true);
   };
 

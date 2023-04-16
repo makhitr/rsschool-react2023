@@ -1,4 +1,4 @@
-import { ICard } from 'types';
+import { ICard, IFormCardModified } from 'types';
 import { store } from './store';
 
 export type RootState = ReturnType<typeof store.getState>;
@@ -12,5 +12,5 @@ export interface IAppState {
   value: null | string;
   selectedCard: null | ICard;
   selectedCardId: null | number;
-  formData: null | [];
+  formData: IFormCardModified[];
 }

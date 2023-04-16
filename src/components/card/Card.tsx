@@ -16,12 +16,6 @@ const Card: React.FC<CardProps> = ({ cardData }): JSX.Element => {
               <h3>{cardData.status}</h3>
               <p>{cardData.gender}</p>
               <p>Species: {cardData.species}</p>
-              {'location' in cardData && (
-                <>
-                  <p>Location: {cardData.location.name}</p>
-                  <p>Origin: {cardData.origin.name}</p>
-                </>
-              )}
               <p>Created: {new Date(cardData.created).toLocaleDateString()}</p>
             </div>
           </main>

@@ -1,5 +1,5 @@
 .cardWrapper {
-  width: 100%;
+  width: 400px;
   background-color: rgb(4, 158, 4);
   padding: 2rem;
 }
@@ -12,7 +12,7 @@
   gap: 2rem;
 }
 .cardWrapper img {
-  max-width: 50%;
+  max-width: 40%;
   border: 2px solid rgb(255,255,0);
   border-radius: 6px;
 }

@@ -19,10 +19,6 @@ export interface ICard {
   created: string;
 }
 
-export type FormProps = {
-  createCard: (card: IFormCardModified) => void;
-};
-
 export interface ISearch {
   searchValue: string;
 }
@@ -37,6 +33,7 @@ export interface IFormCard {
 }
 
 export interface IFormCardModified {
+  id: number;
   name: string;
   created: string;
   status: boolean;
@@ -45,12 +42,12 @@ export interface IFormCardModified {
   image: string;
 }
 export type CardProps = {
-  cardData: ICard | IFormCardModified | null;
+  cardData: IFormCardModified;
 };
 
 export type ICardPreview = {
   id?: number;
-  name: string;
+  name: string; 
   gender: string;
   image: string;
 };
