@@ -1,32 +1,30 @@
 import React from 'react';
 import styles from './SearchBar.module.css';
-import { useDispatch } from 'react-redux';
 import { setValue } from '../../app/appSlice';
-import { ISearch } from '../../types';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useAppDispatch } from '../../app/hooks';
+import { AppDispatch } from '../../app/store';
 
 const SearchBar: React.FC = (): JSX.Element => {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useAppDispatch();
+  const [localValue, setLocalValue] = React.useState('');
 
-  const { register, handleSubmit } = useForm<ISearch>({ mode: 'all' });
-
-  const onSubmit: SubmitHandler<ISearch> = (data) => {
-    const { searchValue } = data;
-    dispatch(setValue(searchValue));
+  const onSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    dispatch(setValue(localValue));
   };
 
   return (
     <div className={styles.searchBarWrapper}>
-      <form className={styles.searchBarForm} onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={onSubmit} role="search">
         <input
           type="text"
-          {...register('searchValue', {
-            required: 'Should not be empty',
-          })}
           placeholder="Search..."
           className={styles.searchBarInput}
+          onChange={(e) => setLocalValue(e.target.value)}
         />
-        <button className={styles.searchBarButton}>Search</button>
+        <button type="submit" className={styles.searchBarButton} data-testid="search-btn">
+          Search
+        </button>
       </form>
     </div>
   );
