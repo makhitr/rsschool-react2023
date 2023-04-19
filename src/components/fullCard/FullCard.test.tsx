@@ -6,7 +6,6 @@ import { renderWithProviders } from '../../utils/utils-for-tests';
 describe('one Card test', () => {
   it('render card', () => {
     renderWithProviders(<FullCard />);
-    screen.debug();
     const card = screen.getByTestId('full-card');
     expect(card).toBeInTheDocument();
   });

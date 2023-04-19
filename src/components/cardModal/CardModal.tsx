@@ -2,13 +2,14 @@ import React from 'react';
 import FullCard from '../fullCard/FullCard';
 import styles from './CardModal.module.css';
 import { getCardData } from '../../app/thunks';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../../app/store';
 import { closeModal } from '../../app/appSlice';
+import { useAppSelector } from '../../app/hooks';
 
-export const CardModal: React.FC = () => {
+const CardModal: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
-  const selectedCardId = useSelector((state: RootState) => state.app.selectedCardId);
+  const selectedCardId = useAppSelector((state: RootState) => state.app.selectedCardId);
 
   const handleClick = () => {
     dispatch(closeModal());
@@ -26,3 +27,5 @@ export const CardModal: React.FC = () => {
     </div>
   );
 };
+
+export default CardModal;

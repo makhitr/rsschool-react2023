@@ -1,6 +1,6 @@
 import { it, expect, vi, Mock } from 'vitest';
 import { screen } from '@testing-library/react';
-import CardsList from './CardsList';
+import CardsFormList from './CardsFormList';
 import { renderWithProviders } from '../../utils/utils-for-tests';
 import { useAppSelector } from '../../app/hooks';
 
@@ -12,7 +12,6 @@ const cards = [
     species: 'Human',
     gender: 'Male',
     image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-    created: '2017-11-04T18:48:46.250Z',
   },
   {
     id: 2,
@@ -21,20 +20,19 @@ const cards = [
     species: 'Human',
     gender: 'Male',
     image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-    created: '2017-11-04T18:48:46.250Z',
   },
 ];
 vi.mock('../../app/hooks');
 
 describe('CardsList', () => {
   it('render cards list', () => {
-    renderWithProviders(<CardsList />);
-    const cardsList = screen.getByTestId('cards-list');
+    renderWithProviders(<CardsFormList />);
+    const cardsList = screen.getByTestId('cardsForm-list');
     expect(cardsList).toBeInTheDocument();
   });
   it('show with data', () => {
     (useAppSelector as Mock).mockReturnValue(cards);
-    renderWithProviders(<CardsList />);
-    expect(screen.getAllByTestId('card-preview')).toHaveLength(2);
+    renderWithProviders(<CardsFormList />);
+    expect(screen.getAllByTestId('card')).toHaveLength(2);
   });
 });
