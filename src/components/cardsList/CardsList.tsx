@@ -1,36 +1,38 @@
 import React from 'react';
-import { CardsListProps, ICard } from '../../types';
+import { ICard } from '../../types';
 import Modal from '../modal/Modal';
 import styles from './CardsList.module.css';
 import CardPreview from '../cardPreview/CardPreview';
-import FullCard from '../../components/fullCard/FullCard';
+import CardModal from '../cardModal/CardModal';
+import { useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '../../app/store';
+import { setSelectedCardId, openModal } from '../../app/appSlice';
+import { useAppSelector } from '../../app/hooks';
 
-const CardsList: React.FC<CardsListProps> = ({ cards }): JSX.Element => {
-  const [showModal, setShowModal] = React.useState(false);
-  const [selectedCardId, setSelectedCardId] = React.useState<number | null>(null);
+const CardsList: React.FC = (): JSX.Element => {
+  const dispatch: AppDispatch = useDispatch();
 
-  function handleClick(card: ICard): void {
-    setSelectedCardId(card.id);
-    setShowModal(true);
-  }
+  const handleClick = (id: number): void => {
+    dispatch(setSelectedCardId(id));
+    dispatch(openModal());
+  };
+
+  const cardsData = useAppSelector((state: RootState) => state.app.entities);
+  const isModalOpen = useAppSelector((state: RootState) => state.app.isOpen);
 
   return (
     <>
-      {showModal && (
-        <Modal onClose={setShowModal}>
-          <div className={styles.cardModal}>
-            <span className={styles.close} onClick={() => setShowModal(false)} />
-            {selectedCardId && <FullCard id={selectedCardId} />}
-          </div>
+      {isModalOpen && (
+        <Modal>
+          <CardModal />
         </Modal>
       )}
+
       <div className={styles.cardSection} data-testid="cards-list">
-        {cards.map(
-          (card) =>
-            'location' in card && (
-              <CardPreview key={card.id} cardData={card} onClick={() => handleClick(card)} />
-            )
-        )}
+        {cardsData &&
+          cardsData.map((card: ICard) => (
+            <CardPreview key={card.id} cardData={card} onClick={() => handleClick(card.id)} />
+          ))}
       </div>
     </>
   );

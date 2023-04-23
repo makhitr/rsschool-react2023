@@ -1,19 +1,23 @@
-import { ReactNode } from 'react';
+import React from 'react';
 import { createPortal } from 'react-dom';
 import styles from '../CardsList/CardsList.module.css';
+import { AppDispatch } from 'app/store';
+import { useDispatch } from 'react-redux';
+import { closeModal } from '../../app/appSlice';
 
 type ModalProps = {
-  onClose: (arg: boolean) => void;
-  children: ReactNode;
+  children: React.ReactNode;
 };
 
-const Modal = ({ onClose, children }: ModalProps) => {
+const Modal = ({ children }: ModalProps) => {
+  const dispatch: AppDispatch = useDispatch();
+
   return createPortal(
     <div
       className={styles.overlay}
       onClick={(event) => {
         if (event.currentTarget === event.target) {
-          onClose(false);
+          dispatch(closeModal());
         }
       }}
     >

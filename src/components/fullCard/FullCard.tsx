@@ -1,40 +1,32 @@
 import React from 'react';
 import styles from './FullCard.module.css';
-import { FullCardProps, ICard } from '../../types';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../app/store';
 
-const FullCard: React.FC<FullCardProps> = ({ id }): JSX.Element => {
-  const [cardData, setCardData] = React.useState<ICard | null>(null);
+const FullCard: React.FC = (): JSX.Element => {
+  const selectedCard = useSelector((state: RootState) => state.app.selectedCard);
 
-  React.useEffect(() => {
-    fetch(`https://rickandmortyapi.com/api/character/${id}`)
-      .then((response) => response.json())
-      .then((data) => setCardData(data));
-  }, [id]);
   return (
-    <>
-      {cardData && (
-        <div className={styles.cardWrapper} data-testid="full-card">
+    <div className={styles.cardWrapper} data-testid="full-card">
+      {selectedCard && (
+        <>
           <header className={styles.cardHeader}>
-            <h2> {cardData.name}</h2>
+            <h2> {selectedCard.name}</h2>
           </header>
           <main className={styles.cardMain}>
-            <img src={cardData.image} />
+            <img src={selectedCard.image} />
             <div>
-              <h3>{cardData.status}</h3>
-              <p>{cardData.gender}</p>
-              <p>Species: {cardData.species}</p>
-              {'location' in cardData && (
-                <>
-                  <p>Location: {cardData.location.name}</p>
-                  <p>Origin: {cardData.origin.name}</p>
-                </>
-              )}
-              <p>Created: {new Date(cardData.created).toLocaleDateString()}</p>
+              <h3>{selectedCard.status}</h3>
+              <p>{selectedCard.gender}</p>
+              <p>Species: {selectedCard.species}</p>
+              <p>Location: {selectedCard.location.name}</p>
+              <p>Origin: {selectedCard.origin.name}</p>
+              <p>Created: {new Date(selectedCard.created).toLocaleDateString()}</p>
             </div>
           </main>
-        </div>
+        </>
       )}
-    </>
+    </div>
   );
 };
 
