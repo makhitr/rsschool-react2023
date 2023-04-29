@@ -15,7 +15,7 @@
     "build:client": "vite build --outDir dist/client",
     "build:server": "vite build --ssr src/entry-server.jsx --outDir dist/server",
     "generate": "vite build --outDir dist/static && npm run build:server && node prerender",
-    "serve": "node server"
+    "server1": "node server1"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",

@@ -1,3 +1,6 @@
+// Pre-render the app into static HTML.
+// run `yarn generate` and then `dist/static` can be served as a static site.
+
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
