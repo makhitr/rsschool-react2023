@@ -26,7 +26,6 @@ async function createServer(isProd = process.env.NODE_ENV === 'production') {
       const result = await fetch('https://rickandmortyapi.com/api/character');
       const data = await result.json();
       preloadedState = { app: { entities: data.results.slice(0, 10) } };
-      console.log('preloadedState', preloadedState);
 
       if (!isProd) {
         template = fs.readFileSync(resolve('index.html'), 'utf-8');
@@ -62,7 +61,7 @@ async function createServer(isProd = process.env.NODE_ENV === 'production') {
   });
 
   // const renderFullPage = (html, preloadedState) => {};
-  app.listen(5175);
+  app.listen(8000);
 }
 
 createServer();
