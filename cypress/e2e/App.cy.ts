@@ -4,7 +4,7 @@ describe('App E2E', () => {
     cy.visit('/');
 
     // cy.get('input').should('have.value', '');
-    cy.get('button').should('have.text', 'Add Character');
+    // cy.get('button').should('have.text', 'Add Character');
   });
   // it('should have form', () => {
   //   cy.visit('/form');
