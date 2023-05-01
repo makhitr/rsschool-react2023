@@ -19,13 +19,25 @@ async function createServer(isProd = process.env.NODE_ENV === 'production') {
   app.use(vite.middlewares);
 
   app.use('*', async (req, res, next) => {
-    let preloadedState;
+    const preloadedState = {
+      app: {
+        entities: [],
+        error: null,
+        loading: 'idle',
+        cardLoading: 'idle',
+        value: null,
+        selectedCard: null,
+        selectedCardId: null,
+        formData: [],
+        isOpen: false,
+      },
+    };
     try {
       const url = req.originalUrl;
       let template, render;
       const result = await fetch('https://rickandmortyapi.com/api/character');
       const data = await result.json();
-      preloadedState = { app: { entities: data.results.slice(0, 10) } };
+      preloadedState.app = { ...preloadedState.app, entities: data.results.slice(0, 10) };
 
       if (!isProd) {
         template = fs.readFileSync(resolve('index.html'), 'utf-8');
@@ -39,28 +51,25 @@ async function createServer(isProd = process.env.NODE_ENV === 'production') {
       const context = {};
       const appHtml = render(url, context, preloadedState);
       if (context.url) {
-        // Somewhere a `<Redirect>` was rendered
         return res.redirect(301, context.url);
       }
 
-      // 5. Inject the app-rendered HTML into the template.
       const html = template.replace(
         `<!--app-html-->`,
         `${appHtml}
-      <script>window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState)}</script>`
+        <script>window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState || {}).replace(
+          /</g,
+          '\\u003c'
+        )}</script>      
+        `
       );
-
-      // 6. Send the rendered HTML back.
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
     } catch (e) {
-      // If an error is caught, let Vite fix the stack trace so it maps back
-      // to your actual source code.
       vite.ssrFixStacktrace(e);
       next(e);
     }
   });
 
-  // const renderFullPage = (html, preloadedState) => {};
   app.listen(8000);
 }
 
