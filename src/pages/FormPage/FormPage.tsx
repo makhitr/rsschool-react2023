@@ -7,7 +7,7 @@ import styles from './FormPage.module.css';
 const FormPage: React.FC = (): JSX.Element => {
   return (
     <div className={styles.mainWrapper} data-testid="form-page">
-      Add your favourite character
+      <h2>Add your favourite character</h2>
       <Form />
       <CardsFormList />
     </div>
