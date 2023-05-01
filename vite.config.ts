@@ -1,10 +1,24 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+/// <reference types="vitest" />
+/// <reference types="vite/client" />
 
-// https://vitejs.dev/config/
+import react from '@vitejs/plugin-react';
+import istanbul from 'vite-plugin-istanbul';
+
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    istanbul({
+      include: 'src/*',
+      exclude: ['node_modules'],
+      cypress: true,
+      requireEnv: false,
+    }),
+  ],
+  build: {
+    sourcemap: true,
+  },
   test: {
     globals: true,
     environment: 'jsdom',

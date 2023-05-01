@@ -3,8 +3,9 @@ import codeCoverage from '@cypress/code-coverage/task';
 
 export default defineConfig({
   e2e: {
-    video: false,
     baseUrl: 'http://localhost:8000',
+    video: false,
+    screenshotOnRunFailure: false,
     setupNodeEvents(on, config) {
       codeCoverage(on, config);
       return config;
