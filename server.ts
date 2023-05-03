@@ -16,7 +16,7 @@ const createServer = async () => {
   });
   app.use(vite.middlewares);
 
-  app.use('^/$', async (req, res, next) => {
+  app.use('*', async (req, res, next) => {
     const preloadedState = {
       app: {
         entities: [],
