@@ -3,7 +3,7 @@ import AppRouter from './router/AppRouters';
 import NavBar from './components/navBar/NavBar';
 import styles from './App.module.css';
 
-const App: React.FC = (): JSX.Element => {
+export const App: React.FC = (): JSX.Element => {
   return (
     <div data-testid="app" className={styles.app}>
       <NavBar />

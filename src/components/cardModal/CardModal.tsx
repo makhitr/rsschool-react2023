@@ -22,7 +22,7 @@ const CardModal: React.FC = () => {
 
   return (
     <div className={styles.cardModal} data-testid="card-modal">
-      <span className={styles.close} onClick={handleClick} />
+      <span className={styles.close} onClick={handleClick} data-testid="close-modal" />
       <FullCard />
     </div>
   );

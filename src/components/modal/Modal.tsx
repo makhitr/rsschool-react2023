@@ -15,6 +15,7 @@ const Modal = ({ children }: ModalProps) => {
   return createPortal(
     <div
       className={styles.overlay}
+      data-testid="overlay"
       onClick={(event) => {
         if (event.currentTarget === event.target) {
           dispatch(closeModal());

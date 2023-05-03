@@ -54,7 +54,9 @@ const Form: React.FC = (): JSX.Element => {
               },
             })}
           />
-          <div className={styles.error}>{errors.name?.message}</div>
+          <div className={styles.error} data-testid="error-message">
+            {errors.name?.message}
+          </div>
         </label>
         <label>
           Created:
@@ -68,7 +70,9 @@ const Form: React.FC = (): JSX.Element => {
             })}
           />
         </label>
-        <div className={styles.error}>{errors.created?.message}</div>
+        <div className={styles.error} data-testid="error-message">
+          {errors.created?.message}
+        </div>
         <label>
           Species:
           <select id="species" {...register('species')}>
@@ -78,7 +82,7 @@ const Form: React.FC = (): JSX.Element => {
             <option value="mythological creature">Mythological Creature</option>
           </select>
         </label>
-        <div className={styles.error}></div>
+        <div className={styles.error} data-testid="error-message"></div>
         <label>
           Alive?
           <input
@@ -86,7 +90,9 @@ const Form: React.FC = (): JSX.Element => {
             {...register('status', { required: 'Please choose your status' })}
           />
         </label>
-        <div className={styles.error}>{errors.status?.message}</div>
+        <div className={styles.error} data-testid="error-message">
+          {errors.status?.message}
+        </div>
         <div>
           <label>
             Male
@@ -104,7 +110,9 @@ const Form: React.FC = (): JSX.Element => {
               value="Female"
             />
           </label>
-          <div className={styles.error}>{errors.gender?.message}</div>
+          <div className={styles.error} data-testid="error-message">
+            {errors.gender?.message}
+          </div>
         </div>
         <label>
           Upload photo
@@ -121,8 +129,10 @@ const Form: React.FC = (): JSX.Element => {
             })}
           />
         </label>
-        <div className={styles.error}>{errors.image?.message}</div>
-        <button>Add Character</button>
+        <div className={styles.error} data-testid="error-message">
+          {errors.image?.message}
+        </div>
+        <button type="submit">Add Character</button>
       </form>
     </>
   );
